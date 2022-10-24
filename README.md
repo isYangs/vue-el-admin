@@ -1,24 +1,3 @@
-# vue3-elementplus-demo
+# VueElAdmin
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+> A Vue.js project for admin panel based on Element Plus and Vue Router and Webpack and TypeScript and Axios.

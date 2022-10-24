@@ -8,12 +8,6 @@ module.exports = {
     parserOptions: {
         ecmaVersion: 2020,
     },
-    /* globals: {
-        defineProps: 'readonly',
-        defineEmits: 'readonly',
-        defineExpose: 'readonly',
-        withDefaults: 'readonly',
-    }, */
     rules: {
         'vue/script-setup-uses-vars': 'error',
         'vue/no-reserved-component-names': 'off',

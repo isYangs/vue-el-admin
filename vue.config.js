@@ -16,6 +16,7 @@ module.exports = defineConfig({
     configureWebpack: {
         plugins: [
             AutoImport({
+                imports: ['vue', 'vue-router', 'vuex'],
                 resolvers: [
                     ElementPlusResolver(),
                     IconsResolver({

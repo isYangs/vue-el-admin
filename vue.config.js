@@ -4,13 +4,15 @@ const Icons = require('unplugin-icons/webpack');
 const IconsResolver = require('unplugin-icons/resolver');
 const { ElementPlusResolver } = require('unplugin-vue-components/resolvers');
 const { defineConfig } = require('@vue/cli-service');
+const path = require('path');
 module.exports = defineConfig({
     transpileDependencies: true,
-    css: {
-        loaderOptions: {
-            less: {
-                additionalData: '@import "@/assets/less/variables.less";',
-            },
+    pluginOptions: {
+        'style-resources-loader': {
+            preProcessor: 'less',
+            patterns: [
+                path.resolve(__dirname, '.src/assets/less/variables.less'),
+            ],
         },
     },
     configureWebpack: {

@@ -21,10 +21,13 @@ const toLogin = () => {
                 <span>VueElAdmin</span>
             </div>
             <div class="login-container__left__content">
-                <img src="@/assets/svg/login-bg.svg" />
+                <img src="@/assets/svg/login-bg.svg" alt="login-bg" />
                 <div class="login-container__left__content_decs">
                     <span>欢迎使用本系统</span>
-                    <span> VueElAdmin 是一个基于 Vue3 和 ElementPlus 的后台管理系统模板 </span>
+                    <span>
+                        VueElAdmin 是一个基于 Vue3 和 ElementPlus
+                        的后台管理系统模板
+                    </span>
                 </div>
             </div>
         </div>

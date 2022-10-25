@@ -2,12 +2,20 @@ module.exports = {
     root: true,
     env: {
         node: true,
+        browser: true,
         'vue/setup-compiler-macros': true,
     },
-    extends: ['plugin:vue/vue3-essential', 'eslint:recommended', '@vue/typescript/recommended', './.eslintrc-auto-import.json'],
+    extends: [
+        'plugin:vue/vue3-essential',
+        'prettier',
+        'eslint:recommended',
+        '@vue/typescript/recommended',
+        './.eslintrc-auto-import.json',
+    ],
     parserOptions: {
         ecmaVersion: 2020,
     },
+    plugins: ['vue', 'prettier'],
     rules: {
         'vue/script-setup-uses-vars': 'error',
         'vue/no-reserved-component-names': 'off',
@@ -50,5 +58,12 @@ module.exports = {
         ],
         'vue/multi-word-component-names': 'off',
         'vue/no-v-html': 'off',
+        'prettier/prettier': [
+            'error',
+            {
+                tabWidth: 4,
+                singleQuote: true,
+            },
+        ],
     },
 };

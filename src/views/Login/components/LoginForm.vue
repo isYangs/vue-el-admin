@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
+import type { FormInstance } from 'element-plus';
+import { LoginForm } from '@/types/login';
 
-const loginForm = reactive({
-    username: '',
-    password: '',
+const loginForm = reactive<LoginForm>({
+    username: 'admin',
+    password: '123456',
 });
 
 const checkbox = ref(false);
@@ -13,18 +15,47 @@ const emit = defineEmits(['to-register']);
 const toRegister = () => {
     emit('to-register');
 };
+
+const loginFormRef = ref<FormInstance>();
+const rules = reactive({
+    username: [
+        { required: true, message: '请输入用户名', trigger: 'blur' },
+        { min: 4, max: 10, message: '长度在 4 到 10 个字符', trigger: 'blur' },
+    ],
+    password: [
+        { required: true, message: '请输入密码', trigger: 'blur' },
+        { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' },
+    ],
+});
 </script>
 <template>
     <div class="login-container__right__form">
         <div class="login-container__right__form_title">
             <span>登录</span>
         </div>
-        <el-form class="login-container__right__form_items" label-position="top">
-            <el-form-item label="用户名">
-                <el-input type="username" v-model="loginForm.username" placeholder="请输入用户名" clearable />
+        <el-form
+            class="login-container__right__form_items"
+            ref="loginFormRef"
+            :model="loginForm"
+            :rules="rules"
+            label-position="top"
+        >
+            <el-form-item label="用户名" prop="username">
+                <el-input
+                    type="username"
+                    v-model="loginForm.username"
+                    placeholder="请输入用户名"
+                    clearable
+                />
             </el-form-item>
-            <el-form-item label="密码">
-                <el-input type="password" v-model="loginForm.password" placeholder="请输入密码" clearable show-password />
+            <el-form-item label="密码" prop="password">
+                <el-input
+                    type="password"
+                    v-model="loginForm.password"
+                    placeholder="请输入密码"
+                    clearable
+                    show-password
+                />
             </el-form-item>
             <el-form-item class="forgot-password">
                 <el-checkbox label="记住我" size="large" v-model="checkbox" />
@@ -37,7 +68,12 @@ const toRegister = () => {
                 <el-button type="default" @click="toRegister">注册</el-button>
             </el-form-item>
         </el-form>
-        <el-divider content-position="center" class="login-container__right__form_division">其他登录方式</el-divider>
+        <el-divider
+            content-position="center"
+            class="login-container__right__form_division"
+        >
+            其他登录方式
+        </el-divider>
         <div class="login-container__right__form_other">
             <Icon name="github" class="other-icon" link="" />
             <Icon name="QQ" class="other-icon" link="" />

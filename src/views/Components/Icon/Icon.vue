@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-// 定义 props
+
 const props = defineProps<{
     link: string;
     name: string;

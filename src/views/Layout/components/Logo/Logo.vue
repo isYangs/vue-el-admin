@@ -1,9 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useAppStore } from '@/store';
+
+const appStore = useAppStore();
+</script>
 
 <template>
     <div class="logo">
         <img src="@/assets/logo.png" alt="logo" />
-        <span>VueElAdmin</span>
+        <span v-show="!appStore.getCollapse">VueElAdmin</span>
     </div>
 </template>
 
@@ -15,6 +19,7 @@
     align-items: center;
     justify-content: center;
     background-color: @--bg-logo;
+    border-bottom: solid 1px #000;
 
     img {
         width: 45px;

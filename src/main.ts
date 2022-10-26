@@ -1,7 +1,18 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
-import Icon from './views/Components/Icon.vue';
+import * as ElementPlusIconsVue from '@element-plus/icons-vue';
+import Icon from './views/Components/Icon/Icon.vue';
 import './assets/iconfont/iconfont.js';
+import { createPinia } from 'pinia';
 
-createApp(App).component('Icon', Icon).use(router).mount('#app');
+const pinia = createPinia();
+
+const app = createApp(App);
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component);
+}
+app.component('Icon', Icon);
+app.use(pinia);
+app.use(router);
+app.mount('#app');

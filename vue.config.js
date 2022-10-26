@@ -1,7 +1,5 @@
 const AutoImport = require('unplugin-auto-import/webpack');
 const Components = require('unplugin-vue-components/webpack');
-const Icons = require('unplugin-icons/webpack');
-const IconsResolver = require('unplugin-icons/resolver');
 const { ElementPlusResolver } = require('unplugin-vue-components/resolvers');
 const { defineConfig } = require('@vue/cli-service');
 const path = require('path');
@@ -11,7 +9,7 @@ module.exports = defineConfig({
         'style-resources-loader': {
             preProcessor: 'less',
             patterns: [
-                path.resolve(__dirname, '.src/assets/less/variables.less'),
+                path.resolve(__dirname, './src/assets/less/variables.less'),
             ],
         },
     },
@@ -19,12 +17,7 @@ module.exports = defineConfig({
         plugins: [
             AutoImport({
                 imports: ['vue', 'vue-router', 'vuex'],
-                resolvers: [
-                    ElementPlusResolver(),
-                    IconsResolver({
-                        prefix: 'Icon',
-                    }),
-                ],
+                resolvers: [ElementPlusResolver()],
                 eslintrc: {
                     enabled: false,
                     filepath: './.eslintrc-auto-import.json',
@@ -32,15 +25,7 @@ module.exports = defineConfig({
                 },
             }),
             Components({
-                resolvers: [
-                    IconsResolver({
-                        enabledCollections: ['ep'],
-                    }),
-                    ElementPlusResolver(),
-                ],
-            }),
-            Icons({
-                autoInstall: true,
+                resolvers: [ElementPlusResolver()],
             }),
         ],
     },

@@ -13,7 +13,7 @@ body,
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: var(--el-font-family);
     background: @--bg;
 }
 </style>

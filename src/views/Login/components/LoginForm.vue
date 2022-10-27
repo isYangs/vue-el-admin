@@ -75,10 +75,10 @@ const rules = reactive({
             其他登录方式
         </el-divider>
         <div class="login-container__right__form_other">
-            <Icon name="github" class="other-icon" link="" />
-            <Icon name="QQ" class="other-icon" link="" />
-            <Icon name="weixin" class="other-icon" link="" />
-            <Icon name="zhifubao" class="other-icon" link="" />
+            <Icon name="github" />
+            <Icon name="QQ" />
+            <Icon name="weixin" />
+            <Icon name="zhifubao" />
         </div>
     </div>
 </template>
@@ -103,10 +103,5 @@ const rules = reactive({
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .other-icon {
-        width: 32px;
-        height: 32px;
-        color: rgba(0, 0, 0, 0.4);
-    }
 }
 </style>

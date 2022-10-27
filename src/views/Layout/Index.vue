@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Logo from './components/Logo/Logo.vue';
-import Menu from './components/Menu/Index.vue';
+import Menu from './components/Aside/Index.vue';
+import Main from './components/Main/Index.vue';
 import { computed } from 'vue';
 import { useAppStore } from '@/store';
 import { isMobile } from '@/utils/isMobile';
@@ -35,7 +36,9 @@ const autoWidth = computed(() => {
                     <component :is="appStore.getCollapse ? Expand : Fold" />
                 </el-icon>
             </el-header>
-            <el-main>Main</el-main>
+            <el-main>
+                <Main />
+            </el-main>
         </el-container>
     </el-container>
 </template>

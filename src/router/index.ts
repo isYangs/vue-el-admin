@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
+import Layout from '@/views/Layout/Index.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -10,61 +11,60 @@ const routes: Array<RouteRecordRaw> = [
         path: '/login',
         name: 'Login',
         meta: { hidden: true },
-        component: () => import('../views/Login/Login.vue'),
+        component: () => import('@/views/Login/Login.vue'),
     },
     {
-        path: '/home',
-        name: 'Home',
+        path: '/dashboard',
+        name: 'Dashboard',
         meta: {
-            title: '首页',
-            icon: 'HomeFilled',
+            title: '控制台',
+            icon: 'Odometer',
         },
-        component: () => import('../views/Dashboard/Index.vue'),
+        redirect: '/dashboard/index',
+        component: Layout,
+        children: [
+            {
+                path: 'index',
+                name: 'Index',
+                component: () => import('@/views/Dashboard/Index.vue'),
+            },
+        ],
     },
     {
-        path: '/setting',
+        path: '/settings',
         name: 'Settings',
         meta: {
             title: '系统设置',
             icon: 'Setting',
         },
-        component: () => import('../views/Dashboard/Index.vue'),
+        component: Layout,
         children: [
             {
-                path: '/department',
-                name: 'Department',
+                path: 'site',
+                name: 'Site',
                 meta: {
-                    title: '部门管理',
-                    icon: 'Briefcase',
+                    title: '网站设置',
+                    icon: 'Location',
                 },
-                component: () => import('../views/Dashboard/Index.vue'),
+                component: () => import('@/views/Settings/Site.vue'),
             },
             {
-                path: '/user',
-                name: 'User',
+                path: 'pages',
+                name: 'Pages',
                 meta: {
-                    title: '用户管理',
-                    icon: 'UserFilled',
+                    title: '页面设置',
+                    icon: 'Document',
                 },
-                component: () => import('../views/Dashboard/Index.vue'),
+                component: () => import('@/views/Settings/Pages.vue'),
             },
             {
-                path: '/role',
-                name: 'Role',
+                path: 'theme',
+                name: 'Theme',
                 meta: {
-                    title: '角色管理',
-                    icon: 'Postcard',
+                    title: '主题设置',
+                    svgIcon: 'color',
                 },
-                component: () => import('../views/Dashboard/Index.vue'),
-            },
-            {
-                path: '/permissions',
-                name: 'Permissions',
-                meta: {
-                    title: '权限管理',
-                    icon: 'Promotion',
-                },
-                component: () => import('../views/Dashboard/Index.vue'),
+                component: () => import('@/views/Settings/Theme.vue'),
             },
         ],
     },

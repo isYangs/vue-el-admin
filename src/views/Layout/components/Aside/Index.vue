@@ -10,8 +10,8 @@ const routers = options.routes;
 
 <template>
     <el-menu
-        default-active="/home"
-        active-text-color="#ffd04b"
+        default-active="/dashboard"
+        active-text-color="#ffffff"
         background-color="#283145"
         text-color="#fff"
         :collapse="appStore.getCollapse"
@@ -27,5 +27,18 @@ const routers = options.routes;
     border: none;
     background-color: @--bg-aside;
     flex: 1;
+
+    .is-active {
+        background-color: @--bg-aside-active;
+
+        .el-sub-menu__title {
+            background-color: @--bg-aside-is-opened !important;
+        }
+    }
+    .is-opened {
+        .el-sub-menu__title {
+            background-color: @--bg-aside-is-opened !important;
+        }
+    }
 }
 </style>

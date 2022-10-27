@@ -1,8 +1,6 @@
-<script setup lang="ts">
-import Layout from '@/views/Layout/Index.vue';
-</script>
+<script setup lang="ts"></script>
 <template>
-    <Layout />
+    <div>首页</div>
 </template>
 
 <style scoped></style>

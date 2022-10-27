@@ -1,9 +1,9 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router';
+import router from '@/router';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
-import Icon from './views/Components/Icon/Icon.vue';
-import './assets/iconfont/iconfont.js';
+import Icon from '@/views/Components/Icon.vue';
+import '@/assets/iconfont/iconfont.js';
 import { createPinia } from 'pinia';
 
 const pinia = createPinia();

@@ -7,6 +7,7 @@ import { useRouter } from 'vue-router';
 const appStore = useAppStore();
 const { options, currentRoute } = useRouter();
 const routers = options.routes;
+const defaultActive = ['/settings'];
 const activeMenu = computed(() => {
     let path = currentRoute.value.path;
     // 截取出二级路由的path
@@ -22,8 +23,8 @@ const activeMenu = computed(() => {
         text-color="#fff"
         :collapse="appStore.getCollapse"
         :collapse-transition="false"
-        unique-opened
         :default-active="activeMenu"
+        :default-openeds="defaultActive"
     >
         <MenuItem :routers="routers" />
     </el-menu>

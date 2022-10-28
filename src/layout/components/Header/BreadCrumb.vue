@@ -1,5 +1,24 @@
 <script setup lang="ts">
 import { ArrowRight } from '@element-plus/icons-vue';
+import { useRoute, RouteLocationMatched } from 'vue-router';
+import { Ref, ref, watch } from 'vue';
+
+const route = useRoute();
+console.log(route);
+const breadcrumb: Ref<RouteLocationMatched[]> = ref([]);
+
+const getBreadcrumb = () => {
+    // 过滤掉不需要显示的路由
+    const matched = route.matched.filter(
+        item => item.meta?.breadcrumb !== false
+    );
+};
+watch(
+    () => route.path,
+    () => {
+        getBreadcrumb();
+    }
+);
 </script>
 
 <template>

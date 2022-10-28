@@ -1,22 +1,29 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useAppStore } from '@/store';
 import MenuItem from './MenuItem.vue';
 import { useRouter } from 'vue-router';
 
 const appStore = useAppStore();
-const { options } = useRouter();
+const { options, currentRoute } = useRouter();
 const routers = options.routes;
+const activeMenu = computed(() => {
+    let path = currentRoute.value.path;
+    // 截取出二级路由的path
+    path = path.split('/')[2];
+    return path;
+});
 </script>
 
 <template>
     <el-menu
-        default-active="/dashboard"
         active-text-color="#ffffff"
         background-color="#283145"
         text-color="#fff"
         :collapse="appStore.getCollapse"
         :collapse-transition="false"
         unique-opened
+        :default-active="activeMenu"
     >
         <MenuItem :routers="routers" />
     </el-menu>

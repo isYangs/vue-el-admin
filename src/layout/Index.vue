@@ -2,6 +2,7 @@
 import Logo from './components/Logo/Logo.vue';
 import Menu from './components/Aside/Index.vue';
 import Main from './components/Main/Index.vue';
+import Header from './components/Header/Index.vue';
 import { computed } from 'vue';
 import { useAppStore } from '@/store';
 import { isMobile } from '@/utils/isMobile';
@@ -35,6 +36,7 @@ const autoWidth = computed(() => {
                 <el-icon class="layout-menu-button" @click="handleCollapse">
                     <component :is="appStore.getCollapse ? Expand : Fold" />
                 </el-icon>
+                <Header />
             </el-header>
             <el-main>
                 <Main />
@@ -63,13 +65,13 @@ const autoWidth = computed(() => {
         padding: 0;
         background: @--bg-panel;
         border-bottom: solid 2px #eee;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         .layout-menu-button {
             width: 50px;
             height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             cursor: pointer;
             font-size: 20px;
         }

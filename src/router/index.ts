@@ -1,31 +1,31 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import Layout from '@/views/Layout/Index.vue';
+import { createRouter, createWebHashHistory } from 'vue-router';
+import { MenuRouteRecordRaw } from '@/types/menu';
 
-const routes: Array<RouteRecordRaw> = [
+const routes: Array<MenuRouteRecordRaw> = [
     {
         path: '/',
         redirect: '/login',
-        meta: { hidden: true },
+        hidden: true,
     },
     {
         path: '/login',
         name: 'Login',
-        meta: { hidden: true },
+        hidden: true,
         component: () => import('@/views/Login/Login.vue'),
     },
     {
         path: '/dashboard',
         name: 'Dashboard',
-        meta: {
-            title: '控制台',
-            icon: 'Odometer',
-        },
         redirect: '/dashboard/index',
-        component: Layout,
+        component: () => import('@/layout/Index.vue'),
         children: [
             {
                 path: 'index',
                 name: 'Index',
+                meta: {
+                    title: '仪表盘',
+                    icon: 'Odometer',
+                },
                 component: () => import('@/views/Dashboard/Index.vue'),
             },
         ],
@@ -37,7 +37,7 @@ const routes: Array<RouteRecordRaw> = [
             title: '系统设置',
             icon: 'Setting',
         },
-        component: Layout,
+        component: () => import('@/layout/Index.vue'),
         children: [
             {
                 path: 'site',

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-interface AppState {
+export interface AppState {
     collapse: boolean;
 }
 export const useAppStore = defineStore('app', {

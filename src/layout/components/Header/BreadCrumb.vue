@@ -2,16 +2,21 @@
 import { ArrowRight } from '@element-plus/icons-vue';
 import { useRoute, RouteLocationMatched } from 'vue-router';
 import { Ref, ref, watch } from 'vue';
+import { useTagsViewStore } from '@/store';
 
 const route = useRoute();
 const breadcrumb: Ref<RouteLocationMatched[]> = ref([]);
+const tagsViewStore = useTagsViewStore();
 
 const getBreadcrumb = () => {
     // 过滤掉不需要显示的路由
-    breadcrumb.value = route.matched.filter(
+    const matched = route.matched.filter(
         item => item.meta && item.meta?.title && item.children.length !== 1
     );
+    breadcrumb.value = matched;
+    tagsViewStore.addCurrentView(matched);
 };
+
 getBreadcrumb();
 watch(
     () => route.path,
@@ -40,8 +45,9 @@ watch(
                         :size="15"
                         color="#000"
                     />
+                    <span style="font-weight: 600">{{ item.meta.title }}</span>
                 </template>
-                <span>{{ item.meta.title }}</span>
+                <span v-else>{{ item.meta.title }}</span>
             </el-breadcrumb-item>
         </el-breadcrumb>
     </div>

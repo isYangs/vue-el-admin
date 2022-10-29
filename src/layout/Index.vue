@@ -3,6 +3,7 @@ import Logo from './components/Logo/Logo.vue';
 import Menu from './components/Aside/Index.vue';
 import Main from './components/Main/Index.vue';
 import Header from './components/Header/Index.vue';
+import TagsView from './components/TagsView/Index.vue';
 import { computed } from 'vue';
 import { useAppStore } from '@/store';
 import { isMobile } from '@/utils/isMobile';
@@ -38,6 +39,7 @@ const autoWidth = computed(() => {
                 </el-icon>
                 <Header />
             </el-header>
+            <TagsView />
             <el-main>
                 <Main />
             </el-main>
@@ -64,7 +66,7 @@ const autoWidth = computed(() => {
         height: 50px;
         padding: 0;
         background: @--bg-panel;
-        border-bottom: solid 2px #eee;
+        border-bottom: solid 1px #eee;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -74,6 +76,18 @@ const autoWidth = computed(() => {
             height: 100%;
             cursor: pointer;
             font-size: 20px;
+        }
+    }
+    .layout-tags-view {
+        width: 100%;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+        background: @--bg-panel;
+
+        .el-icon {
+            margin-right: 5px;
         }
     }
 }

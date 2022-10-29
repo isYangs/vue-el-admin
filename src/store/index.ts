@@ -1,3 +1,4 @@
 import { useAppStore } from './modules/app';
+import { useTagsViewStore } from './modules/tagsView';
 
-export { useAppStore };
+export { useAppStore, useTagsViewStore };

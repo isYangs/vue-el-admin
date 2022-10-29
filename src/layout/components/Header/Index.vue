@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import BreadCrumbVue from './BreadCrumb.vue';
+import BreadCrumb from './BreadCrumb.vue';
 </script>
 
 <template>
     <div class="layout-header-breadcrumb">
-        <BreadCrumbVue />
+        <BreadCrumb />
     </div>
 </template>
 

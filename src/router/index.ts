@@ -37,6 +37,7 @@ const routes: Array<MenuRouteRecordRaw> = [
             title: '系统设置',
             icon: 'Setting',
         },
+        redirect: '/settings/site',
         component: () => import('@/layout/Index.vue'),
         children: [
             {

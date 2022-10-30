@@ -10,9 +10,24 @@ export const useTagsViewStore = defineStore('tagsView', {
         currentView: [], // 当前打开的页面
     }),
 
-    getters: {},
+    getters: {
+        getCurrentView(): RouteLocationMatched[] {
+            return this.currentView;
+        },
+    },
 
     actions: {
-        addCurrentView(view: RouteLocationMatched[]): void {},
+        addCurrentView(view: RouteLocationMatched[]): void {
+            if (view.length > 1) {
+                this.addTagsView(view.slice(-1));
+            } else {
+                this.addTagsView(view);
+            }
+        },
+        addTagsView(view: RouteLocationMatched[]): void {
+            // 避免重复添加
+            if (this.currentView.some(v => v.path === view[0].path)) return;
+            this.currentView.push(...view);
+        },
     },
 });

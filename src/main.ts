@@ -5,6 +5,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 import Icon from '@/views/Components/Icon.vue';
 import '@/assets/iconfont/iconfont.js';
 import { createPinia } from 'pinia';
+import 'animate.css';
 
 const pinia = createPinia();
 

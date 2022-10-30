@@ -4,19 +4,20 @@ import Menu from './components/Aside/Index.vue';
 import Main from './components/Main/Index.vue';
 import Header from './components/Header/Index.vue';
 import TagsView from './components/TagsView/Index.vue';
-import { computed } from 'vue';
+import { computed, onUpdated, ref } from 'vue';
 import { useAppStore } from '@/store';
 import { isMobile } from '@/utils/isMobile';
 import { Expand, Fold } from '@element-plus/icons-vue';
 
 const appStore = useAppStore();
+const IsMobile = computed(() => isMobile());
 
 const handleCollapse = () => {
     appStore.setCollapse(!appStore.getCollapse);
 };
 
 const autoWidth = computed(() => {
-    if (appStore.getCollapse && isMobile()) {
+    if (appStore.getCollapse && IsMobile.value) {
         return '0px';
     } else if (appStore.getCollapse) {
         return '64px';
@@ -30,7 +31,9 @@ const autoWidth = computed(() => {
     <el-container>
         <el-aside :style="`width:${autoWidth}`">
             <Logo />
-            <Menu />
+            <el-scrollbar>
+                <Menu :IsMobile="IsMobile" />
+            </el-scrollbar>
         </el-aside>
         <el-container>
             <el-header>
@@ -47,18 +50,22 @@ const autoWidth = computed(() => {
     </el-container>
 </template>
 
-<style scoped lang="less">
+<style lang="less">
 .el-container {
     height: 100%;
     .el-aside {
         height: 100%;
         background-color: @--bg-aside;
         display: flex;
-        flex-flow: column wrap;
+        flex-flow: column nowrap;
         transition: width 0.35s;
         -webkit-transition: width 0.35s;
         -moz-transition: width 0.35s;
         -o-transition: width 0.35s;
+
+        & > .el-scrollbar {
+            flex: 1;
+        }
     }
 
     .el-header {
@@ -81,14 +88,11 @@ const autoWidth = computed(() => {
     .layout-tags-view {
         width: 100%;
         height: 35px;
+        padding: 5px 0;
         display: flex;
         align-items: center;
         font-size: 15px;
         background: @--bg-panel;
-
-        .el-icon {
-            margin-right: 5px;
-        }
     }
 }
 </style>

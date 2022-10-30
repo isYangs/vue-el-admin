@@ -7,7 +7,7 @@ const appStore = useAppStore();
 <template>
     <div class="logo">
         <img src="@/assets/logo.png" alt="logo" />
-        <span v-show="!appStore.getCollapse">VueElAdmin</span>
+        <span v-if="!appStore.getCollapse">VueElAdmin</span>
     </div>
 </template>
 

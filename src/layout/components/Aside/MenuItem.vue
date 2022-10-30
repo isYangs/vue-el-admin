@@ -82,4 +82,9 @@ const hasOnlyChild = (children: MenuRouteRecordRaw[]) => {
 :deep(.el-menu--inline) {
     background-color: #304156;
 }
+.el-sub-menu {
+    .el-menu-item {
+        min-width: auto;
+    }
+}
 </style>

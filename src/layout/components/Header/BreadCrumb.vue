@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ArrowRight } from '@element-plus/icons-vue';
 import { useRoute, RouteLocationMatched } from 'vue-router';
-import { Ref, ref, watch } from 'vue';
+import { Ref, ref, watchEffect } from 'vue';
 import { useTagsViewStore } from '@/store';
 
 const route = useRoute();
@@ -14,16 +14,14 @@ const getBreadcrumb = () => {
         item => item.meta && item.meta?.title && item.children.length !== 1
     );
     breadcrumb.value = matched;
-    tagsViewStore.addCurrentView(matched);
+    tagsViewStore.addCurrentView(JSON.parse(JSON.stringify(matched)));
 };
 
 getBreadcrumb();
-watch(
-    () => route.path,
-    () => {
-        getBreadcrumb();
-    }
-);
+
+watchEffect(() => {
+    getBreadcrumb();
+});
 </script>
 
 <template>

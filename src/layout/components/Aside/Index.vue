@@ -38,12 +38,10 @@ const activeMenu = computed(() => {
 
     .is-active {
         background-color: @--bg-aside-active;
-
-        .el-sub-menu__title {
-            background-color: @--bg-aside-is-opened !important;
-        }
     }
-    .is-opened {
+}
+.el-menu--collapse {
+    .is-active {
         .el-sub-menu__title {
             background-color: @--bg-aside-is-opened !important;
         }

@@ -6,6 +6,7 @@ import Icon from '@/views/Components/Icon.vue';
 import '@/assets/iconfont/iconfont.js';
 import { createPinia } from 'pinia';
 import 'animate.css';
+import 'normalize.css';
 
 const pinia = createPinia();
 

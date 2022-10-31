@@ -22,22 +22,36 @@ watchEffect(() => {
 
 <template>
     <div class="layout-tags-view-items">
-        <div
-            v-for="item in tagsView"
-            :key="item.path"
-            class="layout-tags-view-items__item"
-            :class="isActive(item) ? 'active' : ''"
-            @click="() => router.push(item.path)"
+        <transition-group
+            name="layoutTagsViewItems"
+            enter-active-class="animate__animated animate__bounceInRight"
+            leave-active-class="animate__animated animate__bounceOut"
         >
-            <span>{{ item.meta.title }}</span>
-            <el-icon class="layout-tags-view-items__item__close">
-                <component :is="Close" />
-            </el-icon>
-        </div>
+            <div
+                v-for="item in tagsView"
+                :key="item.path"
+                class="layout-tags-view-items__item"
+                :class="isActive(item) ? 'active' : ''"
+                @click="() => router.push(item.path)"
+            >
+                <span>{{ item.meta.title }}</span>
+                <el-icon class="layout-tags-view-items__item__close">
+                    <component :is="Close" />
+                </el-icon>
+            </div>
+        </transition-group>
     </div>
 </template>
 
 <style scoped lang="less">
+.layoutTagsViewItems {
+    &-enter-active {
+        animation-duration: 0.5s;
+    }
+    &-leave-active {
+        animation-duration: 0.5s;
+    }
+}
 .layout-tags-view-items__item {
     height: 100%;
     padding: 0 15px;
@@ -47,10 +61,6 @@ watchEffect(() => {
     justify-content: center;
     cursor: pointer;
     border-radius: 3px;
-    transition: all 0.35s;
-    -webkit-transition: all 0.35s;
-    -moz-transition: all 0.35s;
-    -o-transition: all 0.35s;
 
     & > span {
         margin-left: 5px;
@@ -82,7 +92,10 @@ watchEffect(() => {
         font-size: 12px;
         cursor: pointer;
         border-radius: 50%;
-        transition: all 0.35s;
+        transition: width 0.5s;
+        -webkit-transition: width 0.5s;
+        -moz-transition: width 0.5s;
+        -o-transition: width 0.5s;
 
         &:hover {
             color: @--text-color;

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue';
 import type { FormInstance } from 'element-plus';
-import { LoginForm } from '@/types/login';
+import { LoginForm } from '@/types';
 
 const emit = defineEmits(['to-login']);
 const loginForm = reactive<LoginForm>({

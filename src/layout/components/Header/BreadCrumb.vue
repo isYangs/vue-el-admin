@@ -2,11 +2,9 @@
 import { ArrowRight } from '@element-plus/icons-vue';
 import { useRoute, RouteLocationMatched } from 'vue-router';
 import { Ref, ref, watchEffect } from 'vue';
-import { useTagsViewStore } from '@/store';
 
 const route = useRoute();
 const breadcrumb: Ref<RouteLocationMatched[]> = ref([]);
-const tagsViewStore = useTagsViewStore();
 
 const getBreadcrumb = () => {
     // 过滤掉不需要显示的路由
@@ -14,7 +12,6 @@ const getBreadcrumb = () => {
         item => item.meta && item.meta?.title && item.children.length !== 1
     );
     breadcrumb.value = matched;
-    tagsViewStore.addCurrentView(JSON.parse(JSON.stringify(matched)));
 };
 
 getBreadcrumb();

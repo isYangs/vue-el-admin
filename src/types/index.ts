@@ -1,3 +1,5 @@
+import { Ref } from 'vue';
+
 import { RouteRecordRaw } from 'vue-router';
 
 type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
@@ -14,3 +16,15 @@ export type MenuRouteRecordRaw = RouteRecordRaw & {
     } & IconOrSvgIcon;
     children?: MenuRouteRecordRaw[];
 };
+
+export type LoginForm = {
+    username: string;
+    password: string;
+    confirmPassword?: string;
+    phone?: string;
+    code?: number | Ref<number>;
+    codeMin?: number | Ref<number>;
+    codeMax?: number | Ref<number>;
+};
+
+

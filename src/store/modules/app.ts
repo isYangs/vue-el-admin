@@ -1,8 +1,6 @@
 import { defineStore } from 'pinia';
+import { AppState } from '@/store/interface';
 
-export interface AppState {
-    collapse: boolean;
-}
 export const useAppStore = defineStore('app', {
     state: (): AppState => ({
         collapse: false, // 折叠菜单按钮

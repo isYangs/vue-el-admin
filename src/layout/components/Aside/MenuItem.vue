@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-import { MenuRouteRecordRaw } from '@/types/menu';
+import { useRouter, RouteRecordName } from 'vue-router';
+import { MenuRouteRecordRaw } from '@/types';
 
 defineProps(['routers']);
-const router = useRouter();
-const toPath = (path: string) => {
-    router.push({ name: path });
+const { push } = useRouter();
+
+const toPath = (name: RouteRecordName) => {
+    push({ name });
 };
 
-const hasOnlyChild = (children: MenuRouteRecordRaw[]) => {
+const hasOnlyChild = (children: MenuRouteRecordRaw[]): boolean => {
     if (!children) return false;
-    // 过滤掉hidden
     const childRouter = children.filter(item => item.meta?.hidden !== true);
     if (childRouter.length === 1) return true;
     return false;

@@ -1,33 +1,23 @@
 import { defineStore } from 'pinia';
-import { RouteLocationMatched } from 'vue-router';
-
-export interface TagsViewState {
-    currentView: RouteLocationMatched[];
-}
+import { TagsViewState, TagsMenuProps } from '@/store/interface';
 
 export const useTagsViewStore = defineStore('tagsView', {
     state: (): TagsViewState => ({
-        currentView: [], // 当前打开的页面
+        TagsList: [],
     }),
 
     getters: {
-        getCurrentView(): RouteLocationMatched[] {
-            return this.currentView;
+        getTagsList(): TagsMenuProps[] {
+            return this.TagsList;
         },
     },
 
     actions: {
-        addCurrentView(view: RouteLocationMatched[]): void {
-            if (view.length > 1) {
-                this.addTagsView(view.slice(-1));
-            } else {
-                this.addTagsView(view);
+        addTag(tag: TagsMenuProps) {
+            const isSame = this.TagsList.some(item => item.path === tag.path);
+            if (!isSame) {
+                this.TagsList.push(tag);
             }
-        },
-        addTagsView(view: RouteLocationMatched[]): void {
-            // 避免重复添加
-            if (this.currentView.some(v => v.path === view[0].path)) return;
-            this.currentView.push(...view);
         },
     },
 });

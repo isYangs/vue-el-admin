@@ -1,72 +1,50 @@
-<script setup lang="ts">
-import TagsItem from './TagsItem.vue';
-import { DArrowLeft, DArrowRight } from '@element-plus/icons-vue';
-import { ref } from 'vue';
-import { ElScrollbar } from 'element-plus';
-
-const scrollbarRef = ref<InstanceType<typeof ElScrollbar>>();
-
-const scroll = () => {
-    console.log('scroll');
-};
-
-// 当点击左右箭头时，滚动条滚动
-const scrolLeft = () => {
-    scrollbarRef.value?.scrollTo(0, 0);
-};
-
-const scrolRight = () => {
-    scrollbarRef.value?.scrollTo(100, 0);
-};
-</script>
-
 <template>
-    <div class="layout-tags-view">
-        <div class="scrollbar-btn" @click="scrolLeft">
-            <el-icon><DArrowLeft /></el-icon>
-        </div>
-        <el-scrollbar ref="scrollbarRef" @scroll="scroll">
-            <TagsItem />
-        </el-scrollbar>
-        <div class="scrollbar-btn" @click="scrolRight">
-            <el-icon><DArrowRight /></el-icon>
-        </div>
-    </div>
+    <el-tabs v-model="activeTag" type="card">
+        <el-tab-pane
+            v-for="item in tagsList"
+            :key="item.path"
+            :label="item.title"
+            :name="item.path"
+        >
+            {{ item.title }}
+        </el-tab-pane>
+    </el-tabs>
 </template>
+<script lang="ts" setup>
+import { ref, watch, computed } from 'vue';
+import { useTagsViewStore } from '@/store';
+import { useRoute } from 'vue-router';
 
-<style scoped lang="less">
-.layout-tags-view {
-    & > .scrollbar-btn {
-        width: 40px;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 10px;
-        cursor: pointer;
-        border: solid 1px #eee;
-        border-radius: 5px;
-        transition: all 0.35s;
-        -webkit-transition: all 0.35s;
-        -moz-transition: all 0.35s;
-        -o-transition: all 0.35s;
+const tagsViewStore = useTagsViewStore();
+const route = useRoute();
 
-        &:hover {
-            background-color: #eee;
-        }
+const tagsList = computed(() => {
+    return tagsViewStore.getTagsList;
+});
+
+const activeTag = ref('');
+
+const addTag = () => {
+    const { path, meta } = route;
+    tagsViewStore.addTag({
+        path,
+        title: meta.title as string,
+    });
+};
+
+watch(
+    () => route.path,
+    () => {
+        activeTag.value = route.path;
+        addTag();
     }
-
-    & > .el-scrollbar {
-        flex: 1;
-    }
-
-    &-items {
-        width: 100%;
-        height: 35px;
-        display: flex;
-        align-items: center;
-        background-color: @--bg-panel;
-        font-weight: 500;
-    }
+);
+</script>
+<style>
+.demo-tabs > .el-tabs__content {
+    padding: 32px;
+    color: #6b778c;
+    font-size: 32px;
+    font-weight: 600;
 }
 </style>

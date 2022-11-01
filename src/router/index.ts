@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import { MenuRouteRecordRaw } from '@/types/menu';
+import { MenuRouteRecordRaw } from '@/types';
 
 const routes: Array<MenuRouteRecordRaw> = [
     {

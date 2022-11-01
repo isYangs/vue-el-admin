@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import type { FormInstance } from 'element-plus';
-import { LoginForm } from '@/types/login';
+import { LoginForm } from '@/types';
 
 const loginForm = reactive<LoginForm>({
     username: 'admin',

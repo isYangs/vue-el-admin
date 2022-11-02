@@ -19,5 +19,11 @@ export const useTagsViewStore = defineStore('tagsView', {
                 this.TagsList.push(tag);
             }
         },
+        delTag(tagName: string) {
+            const index = this.TagsList.findIndex(
+                item => item.path === tagName
+            );
+            this.TagsList.splice(index, 1);
+        },
     },
 });

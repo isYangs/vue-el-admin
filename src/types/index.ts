@@ -13,6 +13,7 @@ export type MenuRouteRecordRaw = RouteRecordRaw & {
     hidden?: boolean;
     meta?: {
         title: string;
+        close?: boolean;
     } & IconOrSvgIcon;
     children?: MenuRouteRecordRaw[];
 };
@@ -26,5 +27,3 @@ export type LoginForm = {
     codeMin?: number | Ref<number>;
     codeMax?: number | Ref<number>;
 };
-
-

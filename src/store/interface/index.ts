@@ -1,5 +1,6 @@
 export interface AppState {
     collapse: boolean;
+    mobile: boolean;
 }
 
 export interface TagsMenuProps {

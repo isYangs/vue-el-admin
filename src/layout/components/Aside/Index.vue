@@ -8,11 +8,16 @@ const appStore = useAppStore();
 const { options, currentRoute } = useRouter();
 const routers = options.routes;
 const defaultActive = ['/settings'];
+
 const activeMenu = computed(() => {
     let path = currentRoute.value.path;
     // 截取出二级路由的path
     path = path.split('/')[2];
     return path;
+});
+
+const isCollapse = computed(() => {
+    return appStore.getCollapse;
 });
 </script>
 
@@ -21,7 +26,7 @@ const activeMenu = computed(() => {
         active-text-color="#ffffff"
         background-color="#283145"
         text-color="#fff"
-        :collapse="appStore.getCollapse"
+        :collapse="isCollapse"
         :collapse-transition="false"
         :default-active="activeMenu"
         :default-openeds="defaultActive"

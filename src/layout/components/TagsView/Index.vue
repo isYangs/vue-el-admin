@@ -1,14 +1,23 @@
 <script lang="ts" setup>
-import { onMounted, ref, watch, computed } from 'vue';
+import { onMounted, unref, ref, watch, computed } from 'vue';
 import { useAppStore, useTagsViewStore } from '@/store';
 import { useRoute, useRouter } from 'vue-router';
 import { TagsMenuProps } from '@/store/interface';
+import {
+    Operation,
+    RefreshRight,
+    CircleCloseFilled,
+    ArrowLeftBold,
+    ArrowRightBold,
+    CloseBold,
+} from '@element-plus/icons-vue';
 
 const appStore = useAppStore();
 const tagsViewStore = useTagsViewStore();
 const route = useRoute();
 const { push } = useRouter();
 
+// 是否为移动端
 const isMobile = computed(() => {
     return appStore.getMobile;
 });
@@ -17,11 +26,30 @@ const tagsList = computed(() => {
     return tagsViewStore.getTagsList;
 });
 
+// 能否关闭
 const isClose = computed(() => {
-    if (tagsList.value.length === 1) return false;
-    return true;
+    return tagsList.value.length === 1 ? false : true;
 });
 
+// 是否禁用关闭左侧
+const isLeftClose = computed(() => {
+    return tagsList.value.some((item, index) =>
+        item.path === unref(activeTag) ? (index === 0 ? false : true) : false
+    );
+});
+
+// 是否禁用关闭右侧
+const isRightClose = computed(() => {
+    return tagsList.value.some((item, index) =>
+        item.path === unref(activeTag)
+            ? index === tagsList.value.length - 1
+                ? false
+                : true
+            : false
+    );
+});
+
+// 当前激活的标签
 const activeTag = ref('');
 
 // 添加标签
@@ -38,23 +66,39 @@ const tagClick = (tag: any) => {
     push({ path: tag.props.name });
 };
 
-//  删除标签
-const tagRemove = (tagName: string) => {
-    if (isClose.value) {
-        if (tagName === activeTag.value) {
-            tagsList.value.forEach((item, index) => {
-                if (item.path === tagName) {
-                    const nextTag =
-                        tagsList.value[index + 1] || tagsList.value[index - 1];
-                    if (nextTag) {
-                        activeTag.value = nextTag.path;
-                        push({ path: nextTag.path });
-                    }
+//  关闭选中标签
+const closeSelectedTag = (tagName: string) => {
+    if (!isClose.value) return;
+    if (tagName === activeTag.value) {
+        tagsList.value.forEach((item, index) => {
+            if (item.path === tagName) {
+                const nextTag =
+                    tagsList.value[index + 1] || tagsList.value[index - 1];
+                if (nextTag) {
+                    activeTag.value = nextTag.path;
+                    push({ path: nextTag.path });
                 }
-            });
-        }
-        tagsViewStore.delTag(tagName);
+            }
+        });
     }
+    tagsViewStore.delTag(tagName);
+};
+
+// 关闭左侧标签
+const closeLeftTag = () => {
+    if (!isLeftClose.value) return;
+    tagsViewStore.delLeftTag(activeTag.value);
+};
+
+// 关闭右侧标签
+const closeRightTag = () => {
+    if (!isRightClose.value) return;
+    tagsViewStore.delRightTag(activeTag.value);
+};
+
+// 关闭全部标签
+const closeAllTag = () => {
+    tagsViewStore.delAllTag(activeTag.value);
 };
 
 // 刷新缓存标签数据
@@ -93,14 +137,11 @@ onMounted(() => {
 
 <template>
     <div class="layout-tags-view">
-        <div v-show="!isMobile" class="scrollbar-btn">
-            <el-icon><DArrowLeft /></el-icon>
-        </div>
         <el-tabs
             v-model="activeTag"
             type="card"
             @tab-click="tagClick"
-            @tab-remove="tagRemove"
+            @tab-remove="closeSelectedTag"
         >
             <el-tab-pane
                 v-for="item in tagsList"
@@ -110,9 +151,48 @@ onMounted(() => {
                 :closable="isClose"
             />
         </el-tabs>
-        <div v-show="!isMobile" class="scrollbar-btn">
-            <el-icon><DArrowRight /></el-icon>
-        </div>
+        <el-dropdown trigger="click" class="context" v-show="!isMobile">
+            <el-button type="primary" class="context-btn" :icon="Operation">
+                更多功能
+            </el-button>
+            <template #dropdown>
+                <el-dropdown-menu>
+                    <el-dropdown-item :icon="RefreshRight">
+                        重载页面
+                    </el-dropdown-item>
+                    <el-dropdown-item
+                        :icon="CircleCloseFilled"
+                        @click="closeSelectedTag(activeTag)"
+                        :disabled="!isClose"
+                    >
+                        关闭当前
+                    </el-dropdown-item>
+                    <el-dropdown-item
+                        :icon="ArrowLeftBold"
+                        divided
+                        @click="closeLeftTag"
+                        :disabled="!isLeftClose"
+                    >
+                        关闭左侧
+                    </el-dropdown-item>
+                    <el-dropdown-item
+                        :icon="ArrowRightBold"
+                        @click="closeRightTag"
+                        :disabled="!isRightClose"
+                    >
+                        关闭右侧
+                    </el-dropdown-item>
+                    <el-dropdown-item
+                        :icon="CloseBold"
+                        @click="closeAllTag"
+                        divided
+                        :disabled="!isClose"
+                    >
+                        关闭所有
+                    </el-dropdown-item>
+                </el-dropdown-menu>
+            </template>
+        </el-dropdown>
     </div>
 </template>
 
@@ -121,34 +201,29 @@ onMounted(() => {
     display: flex;
     align-items: center;
     height: 100%;
-    & > .scrollbar-btn {
-        width: 40px;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 10px;
-        cursor: pointer;
-        border: solid 1px #eee;
-        border-radius: 5px;
-        transition: all 0.35s;
-        -webkit-transition: all 0.35s;
-        -moz-transition: all 0.35s;
-        -o-transition: all 0.35s;
 
-        &:hover {
-            background-color: #eee;
+    .context {
+        height: 100%;
+        padding: 0 20px;
+        border-left: 2px solid #eee;
+        .context-btn {
+            height: 100%;
         }
     }
 }
+
 :deep(.el-tabs) {
+    margin-left: 10px;
     flex: 1;
     overflow: hidden;
+
     &__header {
         margin: 0;
         border: none;
+
         .el-tabs__nav {
             border: none;
+
             .el-tabs__item {
                 height: 100%;
                 border-radius: 3px;

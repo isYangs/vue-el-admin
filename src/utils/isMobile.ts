@@ -3,5 +3,5 @@ import { useWindowSize } from '@vueuse/core';
 const { width } = useWindowSize();
 
 export const isMobile = (): boolean => {
-    return width.value <= 768;
+    return width.value <= 790;
 };

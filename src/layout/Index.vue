@@ -87,7 +87,7 @@ const autoWidth = computed(() => {
     }
     .layout-tags-view {
         height: 35px;
-        padding: 5px 0;
+        padding: 8px 0;
         display: flex;
         align-items: center;
         background: @--bg-panel;

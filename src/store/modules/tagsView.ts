@@ -25,5 +25,21 @@ export const useTagsViewStore = defineStore('tagsView', {
             );
             this.TagsList.splice(index, 1);
         },
+        delLeftTag(tagName: string) {
+            const index = this.TagsList.findIndex(
+                item => item.path === tagName
+            );
+            this.TagsList.splice(0, index);
+        },
+        delRightTag(tagName: string) {
+            const index = this.TagsList.findIndex(
+                item => item.path === tagName
+            );
+            this.TagsList.splice(index + 1);
+        },
+        delAllTag(tagName: string) {
+            this.delLeftTag(tagName);
+            this.delRightTag(tagName);
+        },
     },
 });

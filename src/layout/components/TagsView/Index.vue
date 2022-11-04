@@ -22,6 +22,7 @@ const isMobile = computed(() => {
     return appStore.getMobile;
 });
 
+// 获取tags的数据
 const tagsList = computed(() => {
     return tagsViewStore.getTagsList;
 });

@@ -5,10 +5,12 @@ import { MenuRouteRecordRaw } from '@/types';
 defineProps(['routers']);
 const { push } = useRouter();
 
+// 跳转路由
 const toPath = (name: RouteRecordName) => {
     push({ name });
 };
 
+// 判断是否只有一个子路由
 const hasOnlyChild = (children: MenuRouteRecordRaw[]): boolean => {
     if (!children) return false;
     const childRouter = children.filter(item => item.meta?.hidden !== true);

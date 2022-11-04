@@ -6,8 +6,8 @@ import { Ref, ref, watchEffect } from 'vue';
 const route = useRoute();
 const breadcrumb: Ref<RouteLocationMatched[]> = ref([]);
 
+// 获取面包屑
 const getBreadcrumb = () => {
-    // 过滤掉不需要显示的路由
     const matched = route.matched.filter(
         item => item.meta && item.meta?.title && item.children.length !== 1
     );
@@ -52,8 +52,8 @@ watchEffect(() => {
 .el-breadcrumb {
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
+    margin-right: auto;
+    flex: 1;
     font-size: 15px;
 
     .el-icon {

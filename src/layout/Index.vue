@@ -1,13 +1,13 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+import { useAppStore } from '@/store';
+import { isMobile } from '@/utils/isMobile';
+import { Expand, Fold } from '@element-plus/icons-vue';
 import Logo from './components/Logo/Logo.vue';
 import Menu from './components/Aside/Index.vue';
 import Main from './components/Main/Index.vue';
 import Header from './components/Header/Index.vue';
 import TagsView from './components/TagsView/Index.vue';
-import { computed } from 'vue';
-import { useAppStore } from '@/store';
-import { isMobile } from '@/utils/isMobile';
-import { Expand, Fold } from '@element-plus/icons-vue';
 
 const appStore = useAppStore();
 const IsMobile = computed(() => isMobile());
@@ -37,10 +37,11 @@ const autoWidth = computed(() => {
         </el-aside>
         <el-container>
             <el-header>
-                <el-icon class="layout-menu-button" @click="handleCollapse">
-                    <component :is="appStore.getCollapse ? Expand : Fold" />
-                </el-icon>
-                <Header />
+                <Header>
+                    <el-icon class="layout-menu-button" @click="handleCollapse">
+                        <component :is="appStore.getCollapse ? Expand : Fold" />
+                    </el-icon>
+                </Header>
             </el-header>
             <TagsView />
             <el-main>

@@ -9,6 +9,7 @@ const { options, currentRoute } = useRouter();
 const routers = options.routes;
 const defaultActive = ['/settings'];
 
+// 默认展开的菜单
 const activeMenu = computed(() => {
     let path = currentRoute.value.path;
     // 截取出二级路由的path
@@ -16,6 +17,7 @@ const activeMenu = computed(() => {
     return path;
 });
 
+// 是否展开菜单
 const isCollapse = computed(() => {
     return appStore.getCollapse;
 });

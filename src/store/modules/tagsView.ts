@@ -30,16 +30,22 @@ export const useTagsViewStore = defineStore('tagsView', {
                 item => item.path === tagName
             );
             this.TagsList.splice(0, index);
+            this.delSession();
         },
         delRightTag(tagName: string) {
             const index = this.TagsList.findIndex(
                 item => item.path === tagName
             );
             this.TagsList.splice(index + 1);
+            this.delSession();
         },
         delAllTag(tagName: string) {
             this.delLeftTag(tagName);
             this.delRightTag(tagName);
+            this.delSession();
+        },
+        delSession() {
+            sessionStorage.removeItem('VEA_TAGS_ROUTES');
         },
     },
 });

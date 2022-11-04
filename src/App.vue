@@ -7,13 +7,20 @@ import { isMobile } from '@/utils/isMobile';
 const { width } = useWindowSize();
 const appStore = useAppStore();
 
+// 监听窗口大小
+const isMobileShow = () => {
+    appStore.setCollapse(isMobile());
+    appStore.setMobile(isMobile());
+};
+
 watch(
     () => width.value,
     () => {
-        appStore.setCollapse(isMobile());
-        appStore.setMobile(isMobile());
+        isMobileShow();
     }
 );
+
+isMobileShow();
 </script>
 
 <template>

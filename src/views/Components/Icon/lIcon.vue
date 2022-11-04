@@ -19,7 +19,7 @@ const props = defineProps({
 const id = ref(`#${props.name}`);
 </script>
 <template>
-    <li class="el-icon">
+    <li class="e-icon">
         <svg
             class="icon"
             :style="`width:${size}px; height:${size}px;color:${color};`"
@@ -30,8 +30,9 @@ const id = ref(`#${props.name}`);
 </template>
 
 <style scoped lang="less">
-.el-icon {
+.e-icon {
     list-style: none;
+    margin: 0 10px 0 2px;
 
     .icon {
         width: 100%;

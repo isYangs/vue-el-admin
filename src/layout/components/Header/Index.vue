@@ -164,7 +164,7 @@ const clearCache = () => {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-right: 20px;
+            margin-right: 10px;
 
             &-btn {
                 cursor: pointer;

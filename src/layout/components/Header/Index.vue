@@ -93,7 +93,6 @@ const clearCache = () => {
                         <template #content>
                             <span>最大化窗口</span>
                         </template>
-                        <!-- <el-icon @click="toggle"><FullScreen /></el-icon> -->
                         <Icon
                             :name="isFullscreen ? 'minimize' : 'maximize'"
                             :type="false"

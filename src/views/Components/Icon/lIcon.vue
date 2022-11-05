@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { watch, unref, ref } from 'vue';
 
 const props = defineProps({
     name: {
@@ -16,7 +16,14 @@ const props = defineProps({
     },
 });
 
-const id = ref(`#${props.name}`);
+const iconName = ref(props.name);
+
+watch(
+    () => props.name,
+    val => {
+        iconName.value = unref(val);
+    }
+);
 </script>
 <template>
     <li class="e-icon">
@@ -24,7 +31,7 @@ const id = ref(`#${props.name}`);
             class="icon"
             :style="`width:${size}px; height:${size}px;color:${color};`"
         >
-            <use :href="id" />
+            <use :href="`#${iconName}`" />
         </svg>
     </li>
 </template>

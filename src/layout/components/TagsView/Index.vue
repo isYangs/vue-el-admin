@@ -62,6 +62,27 @@ const addTag = () => {
     });
 };
 
+// 刷新缓存标签数据
+const refreshTags = () => {
+    window.addEventListener('beforeunload', () => {
+        sessionStorage.setItem(
+            'VEA_TAGS_ROUTES',
+            JSON.stringify(tagsList.value)
+        );
+    });
+
+    let sessionTags = sessionStorage.getItem('VEA_TAGS_ROUTES');
+
+    if (sessionTags) {
+        const tagItem = JSON.parse(sessionTags);
+        tagItem.forEach((item: TagsMenuProps) => {
+            tagsViewStore.addTag(item);
+        });
+    }
+};
+
+refreshTags();
+
 // 点击标签路由跳转
 const tagClick = (tag: any) => {
     push({ path: tag.props.name });
@@ -102,38 +123,14 @@ const closeAllTag = () => {
     tagsViewStore.delAllTag(activeTag.value);
 };
 
-// 刷新缓存标签数据
-const refreshTags = () => {
-    window.addEventListener('beforeunload', () => {
-        sessionStorage.setItem(
-            'VEA_TAGS_ROUTES',
-            JSON.stringify(tagsList.value)
-        );
-    });
-
-    let sessionTags = sessionStorage.getItem('VEA_TAGS_ROUTES');
-
-    if (sessionTags) {
-        const tagItem = JSON.parse(sessionTags);
-        tagItem.forEach((item: TagsMenuProps) => {
-            tagsViewStore.addTag(item);
-        });
-    }
-};
-
 watch(
     () => route.path,
     () => {
         activeTag.value = route.path;
         addTag();
-    }
+    },
+    { immediate: true }
 );
-
-onMounted(() => {
-    refreshTags();
-    addTag();
-    activeTag.value = route.path;
-});
 </script>
 
 <template>

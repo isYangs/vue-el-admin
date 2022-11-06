@@ -71,8 +71,7 @@ const autoWidth = computed(() => {
 
     .el-header {
         width: 100%;
-        height: 50px;
-        padding: 0;
+        padding: 5px 0;
         background: @--bg-panel;
         border-bottom: solid 1px #eee;
         display: flex;
@@ -95,6 +94,11 @@ const autoWidth = computed(() => {
         font-size: 15px;
         font-weight: 500;
         overflow: hidden;
+    }
+    .el-main {
+        height: 100%;
+        margin: 20px;
+        background: @--bg-main;
     }
 }
 </style>

@@ -145,7 +145,6 @@ const clearCache = () => {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-right: auto;
 
     &-left {
         display: flex;

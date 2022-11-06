@@ -5,6 +5,7 @@ export const useAppStore = defineStore('app', {
     state: (): AppState => ({
         collapse: false, // 折叠菜单按钮
         mobile: false, // 是否是移动端
+        avatar: 'https://a.xuewuzhibu.cn/1/62ffa32495bbf-1.jpg', // 头像
     }),
 
     getters: {
@@ -14,6 +15,9 @@ export const useAppStore = defineStore('app', {
         getMobile(): boolean {
             return this.mobile;
         },
+        getAvatar(): string {
+            return this.avatar;
+        },
     },
 
     actions: {
@@ -22,6 +26,9 @@ export const useAppStore = defineStore('app', {
         },
         setMobile(mobile: boolean): void {
             this.mobile = mobile;
+        },
+        setAvatar(avatar: string): void {
+            this.avatar = avatar;
         },
     },
 });

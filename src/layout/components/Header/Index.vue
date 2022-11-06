@@ -27,7 +27,9 @@ const isShowMessageTip = ref(true);
 // 消息数量
 const msgNumber = ref(3);
 // 头像url
-const avatarUrl = ref('https://a.xuewuzhibu.cn/1/62ffa32495bbf-1.jpg');
+const avatarUrl = computed(() => {
+    return appStore.getAvatar;
+});
 
 // 跳转项目地址
 const toProject = () => {

@@ -201,11 +201,11 @@ watch(
     height: 100%;
 
     .context {
-        height: 100%;
+        height: inherit;
         padding: 0 20px;
         border-left: 2px solid #eee;
         .context-btn {
-            height: 100%;
+            height: inherit;
         }
     }
 }
@@ -214,16 +214,26 @@ watch(
     margin-left: 10px;
     flex: 1;
     overflow: hidden;
+    height: inherit;
 
     &__header {
         margin: 0;
         border: none;
+        height: inherit;
 
         .el-tabs__nav {
+            height: inherit;
             border: none;
+
+            &-wrap,
+            &-scroll {
+                height: inherit;
+            }
 
             .el-tabs__item {
                 height: 100%;
+                text-align: center;
+                line-height: 35px;
                 border-radius: 3px;
                 cursor: pointer;
                 margin-right: 5px;

@@ -93,7 +93,9 @@ const clearCache = () => {
                 <div class="layout-header-right__icon-btn">
                     <el-tooltip>
                         <template #content>
-                            <span>最大化窗口</span>
+                            <span>
+                                最{{ isFullscreen ? '小' : '大' }}化窗口
+                            </span>
                         </template>
                         <Icon
                             :name="isFullscreen ? 'minimize' : 'maximize'"

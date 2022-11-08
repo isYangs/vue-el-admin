@@ -97,8 +97,7 @@ const autoWidth = computed(() => {
     }
     .el-main {
         height: 100%;
-        margin: 20px;
-        padding: 0;
+        padding: 20px;
     }
 }
 </style>

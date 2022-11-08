@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import * as echarts from 'echarts';
-import { unref, ref, onMounted, watch } from 'vue';
+import { computed, unref, ref, onMounted, watch } from 'vue';
+import { useAppStore } from '@/store';
+
+const appStore = useAppStore();
+
+// 是否为移动端
+const isMobile = computed(() => {
+    return appStore.getMobile;
+});
 
 const props = defineProps({
     option: {
@@ -17,22 +25,30 @@ const props = defineProps({
     },
 });
 
-const charts = ref();
+const Echarts = ref();
+const chart = ref();
+
+const initChart = () => {
+    chart.value = echarts.init(unref(Echarts));
+    unref(chart).setOption(unref(props.option));
+    window.addEventListener('resize', () => {
+        unref(chart).resize();
+    });
+};
 
 watch(
     () => props.option,
     () => {
-        unref(charts)?.setOption(props.option);
+        unref(chart).setOption(unref(props.option));
     },
     { deep: true }
 );
 
 onMounted(() => {
-    const chart = echarts.init(unref(charts));
-    chart.setOption(props.option);
+    initChart();
 });
 </script>
 
 <template>
-    <div ref="charts" :style="{ height, width }"></div>
+    <div ref="Echarts" :style="{ height, width }"></div>
 </template>

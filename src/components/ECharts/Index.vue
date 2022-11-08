@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import * as echarts from 'echarts';
-import { computed, unref, ref, onMounted, watch } from 'vue';
+import { computed, shallowRef, unref, ref, onMounted, watch } from 'vue';
 import { useAppStore } from '@/store';
 
 const appStore = useAppStore();
 
-// 是否为移动端
 const isMobile = computed(() => {
     return appStore.getMobile;
 });
@@ -26,7 +25,7 @@ const props = defineProps({
 });
 
 const Echarts = ref();
-const chart = ref();
+const chart = shallowRef();
 
 const initChart = () => {
     chart.value = echarts.init(unref(Echarts));

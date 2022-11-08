@@ -21,7 +21,7 @@ export const getCurrentTime = () => {
                 hitokoto: '下午茶时间到了，喝杯茶休息一下吧！',
             },
         ];
-    } else if (hour >= 18 && hour < 20) {
+    } else if (hour >= 18 && hour < 21) {
         return [
             {
                 time: '晚上好',

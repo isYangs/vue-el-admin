@@ -2,6 +2,7 @@ export interface AppState {
     collapse: boolean;
     mobile: boolean;
     avatar: string;
+    lang: { [key: string]: string }[];
 }
 
 export interface TagsMenuProps {

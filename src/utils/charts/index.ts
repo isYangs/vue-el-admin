@@ -1,3 +1,4 @@
 import langChartOptionCreator from './langChartOptions';
+import consoleChartOptionCreator from './consoleChartOptions';
 
-export { langChartOptionCreator };
+export { langChartOptionCreator, consoleChartOptionCreator };

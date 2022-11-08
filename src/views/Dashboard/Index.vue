@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue';
+import { ref, computed } from 'vue';
 import { useAppStore } from '@/store';
 import { getCurrentTime } from '@/utils/time';
-import { iconsole } from '@/api';
 import ECharts from '@/components/ECharts/Index.vue';
-import { langChartOptionCreator } from '@/utils/charts';
+import {
+    langChartOptionCreator,
+    consoleChartOptionCreator,
+} from '@/utils/charts';
 
 const appStore = useAppStore();
 
@@ -25,15 +27,6 @@ const loginTime = ref('2022-11-07');
 const loginIp = ref('210.72.145.44');
 // 获取本项目最后一次提交
 const lastCommit = ref('fix: 修复tags标签样式bug');
-
-// 获取语言图表数据
-const getLangChart = async () => {
-    const res = await iconsole.getLang().catch(() => {});
-};
-
-onMounted(() => {
-    getLangChart();
-});
 </script>
 
 <template>
@@ -67,9 +60,32 @@ onMounted(() => {
                 <el-button type="primary" link>前往查看</el-button>
             </div>
         </el-card>
-        <div class="console-lang-chart">
-            <ECharts :option="langChartOptionCreator()" />
-        </div>
+        <el-row justify="space-between" class="console-chart">
+            <el-col :xs="24" :sm="12">
+                <el-card
+                    shadow="hover"
+                    class="console-chart-lang"
+                    body-style="padding: 0;"
+                >
+                    <ECharts
+                        :option="langChartOptionCreator()"
+                        :height="'300px'"
+                    />
+                </el-card>
+            </el-col>
+            <el-col :xs="24" :sm="12">
+                <el-card
+                    shadow="hover"
+                    class="console-chart-console"
+                    body-style="padding: 0;"
+                >
+                    <ECharts
+                        :option="consoleChartOptionCreator()"
+                        :height="'300px'"
+                    />
+                </el-card>
+            </el-col>
+        </el-row>
     </div>
 </template>
 
@@ -106,6 +122,7 @@ onMounted(() => {
         &-right {
             width: auto;
             height: 70px;
+            padding-left: 50px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -140,6 +157,16 @@ onMounted(() => {
             justify-content: center;
             font-size: 15px;
             color: @--text-color-sub;
+        }
+    }
+    &-chart {
+        .el-col {
+            margin: 10px 0;
+        }
+
+        [class*='console-chart-'] {
+            height: 300px;
+            padding: 10px;
         }
     }
 }

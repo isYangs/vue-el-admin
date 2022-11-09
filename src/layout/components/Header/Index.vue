@@ -54,6 +54,11 @@ const clearCache = () => {
         })
         .catch(e => e);
 };
+
+// 重载页面
+const reloadPage = () => {
+    appStore.reloadPage();
+};
 </script>
 
 <template>
@@ -63,7 +68,10 @@ const clearCache = () => {
             <BreadCrumb v-show="!isMobile" />
         </div>
         <div class="layout-header-right">
-            <div class="layout-header-right__icon">
+            <div
+                class="layout-header-right__icon"
+                :style="{ width: isMobile ? '140px' : '' }"
+            >
                 <div class="layout-header-right__icon-btn">
                     <MessageBox>
                         <el-badge :value="msgNumber">
@@ -88,6 +96,16 @@ const clearCache = () => {
                             <span>清空缓存</span>
                         </template>
                         <el-icon @click="clearCache"><Delete /></el-icon>
+                    </el-tooltip>
+                </div>
+                <div class="layout-header-right__icon-btn" v-if="isMobile">
+                    <el-tooltip>
+                        <template #content>
+                            <span>重载页面</span>
+                        </template>
+                        <el-icon @click="reloadPage">
+                            <Refresh />
+                        </el-icon>
                     </el-tooltip>
                 </div>
                 <div class="layout-header-right__icon-btn">

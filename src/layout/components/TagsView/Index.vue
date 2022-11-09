@@ -123,6 +123,11 @@ const closeAllTag = () => {
     tagsViewStore.delAllTag(activeTag.value);
 };
 
+// 重载页面
+const reloadPage = () => {
+    appStore.reloadPage();
+};
+
 watch(
     () => route.path,
     () => {
@@ -155,7 +160,7 @@ watch(
             </el-button>
             <template #dropdown>
                 <el-dropdown-menu>
-                    <el-dropdown-item :icon="RefreshRight">
+                    <el-dropdown-item :icon="RefreshRight" @click="reloadPage">
                         重载页面
                     </el-dropdown-item>
                     <el-dropdown-item

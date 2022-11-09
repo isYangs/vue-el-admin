@@ -32,7 +32,7 @@ const autoWidth = computed(() => {
         <el-aside :style="`width:${autoWidth}`">
             <Logo />
             <el-scrollbar>
-                <Menu :IsMobile="IsMobile" />
+                <Menu />
             </el-scrollbar>
         </el-aside>
         <el-container>

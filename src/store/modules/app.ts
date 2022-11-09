@@ -6,6 +6,7 @@ export const useAppStore = defineStore('app', {
     state: (): AppState => ({
         collapse: false, // 折叠菜单按钮
         mobile: false, // 是否是移动端
+        loading: false, // 全局加载状态
         avatar: 'https://a.xuewuzhibu.cn/1/62ffa32495bbf-1.jpg', // 头像
         lang: [], // 本项目使用的语言
     }),
@@ -17,21 +18,38 @@ export const useAppStore = defineStore('app', {
         getMobile(): boolean {
             return this.mobile;
         },
+        getLoading(): boolean {
+            return this.loading;
+        },
         getAvatar(): string {
             return this.avatar;
         },
-        getLang(): Object {
+        getLang(): { [key: string]: string }[] {
             return this.lang;
         },
     },
 
     actions: {
+        getStorage(name: string): [] {
+            if (!sessionStorage.getItem(name)) return [];
+            return JSON.parse(sessionStorage.getItem(name) as string);
+        },
         async addLang() {
-            // const res = await iconsole.getLang();
-            // for (const key in res.data) {
-            //     if (this.lang.some(item => item.name === key)) return;
-            //     this.setLang(res.data, key);
-            // }
+            const n = 'VUE_EL_ADMIN_LANG';
+            if (!this.getStorage(n).length) {
+                const r = await iconsole.getLang();
+                const d = [];
+                for (const key in r.data) {
+                    if (this.lang.some(item => item.name === key)) return;
+                    d.push({
+                        name: key,
+                        value: r.data[key],
+                    });
+                }
+                this.lang = d;
+                this.setLangStorage(n, d);
+            }
+            this.lang = this.getStorage(n);
         },
         setCollapse(collapse: boolean): void {
             this.collapse = collapse;
@@ -39,15 +57,14 @@ export const useAppStore = defineStore('app', {
         setMobile(mobile: boolean): void {
             this.mobile = mobile;
         },
+        setLoading(loading: boolean): void {
+            this.loading = loading;
+        },
         setAvatar(avatar: string): void {
             this.avatar = avatar;
         },
-        setLang(data: Object, key: string): void {
-            // this.lang.push({
-            //     value: data[key],
-            //     name: key,
-            // });
-            console.log(data, key);
+        setLangStorage(name: string, data: { [key: string]: string }[]): void {
+            sessionStorage.setItem(name, JSON.stringify(data));
         },
     },
 });

@@ -1,6 +1,7 @@
 export interface AppState {
     collapse: boolean;
     mobile: boolean;
+    loading: boolean;
     avatar: string;
     lang: { [key: string]: string }[];
 }

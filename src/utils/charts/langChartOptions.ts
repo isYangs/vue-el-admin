@@ -1,4 +1,4 @@
-export default () => {
+export default (data: { [key: string]: string }[]) => {
     return {
         title: {
             text: '项目使用的语言',
@@ -20,13 +20,7 @@ export default () => {
                 name: '技术栈',
                 type: 'pie',
                 radius: '50%',
-                data: [
-                    { value: 49764, name: 'Vue' },
-                    { value: 10919, name: 'TypeScript' },
-                    { value: 3733, name: 'JavaScript' },
-                    { value: 611, name: 'HTML' },
-                    { value: 497, name: 'Less' },
-                ],
+                data: data,
                 emphasis: {
                     itemStyle: {
                         shadowBlur: 10,

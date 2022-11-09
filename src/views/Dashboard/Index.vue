@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useAppStore } from '@/store';
 import { getCurrentTime } from '@/utils/time';
 import ECharts from '@/components/ECharts/Index.vue';
@@ -27,6 +27,15 @@ const loginTime = ref('2022-11-07');
 const loginIp = ref('210.72.145.44');
 // 获取本项目最后一次提交
 const lastCommit = ref('fix: 修复tags标签样式bug');
+
+// 获取语言统计数据
+const langChartData = computed(() => {
+    return appStore.getLang;
+});
+
+onMounted(() => {
+    appStore.addLang();
+});
 </script>
 
 <template>
@@ -68,7 +77,59 @@ const lastCommit = ref('fix: 修复tags标签样式bug');
                     body-style="padding: 0;"
                 >
                     <ECharts
-                        :option="langChartOptionCreator()"
+                        :option="langChartOptionCreator(langChartData)"
+                        :height="'300px'"
+                    />
+                </el-card>
+            </el-col>
+            <el-col :xs="24" :sm="12">
+                <el-card
+                    shadow="hover"
+                    class="console-chart-console"
+                    body-style="padding: 0;"
+                >
+                    <ECharts
+                        :option="consoleChartOptionCreator()"
+                        :height="'300px'"
+                    />
+                </el-card>
+            </el-col>
+        </el-row>
+        <el-row justify="space-between" class="console-chart">
+            <el-col :xs="24" :sm="12">
+                <el-card
+                    shadow="hover"
+                    class="console-chart-lang"
+                    body-style="padding: 0;"
+                >
+                    <ECharts
+                        :option="langChartOptionCreator(langChartData)"
+                        :height="'300px'"
+                    />
+                </el-card>
+            </el-col>
+            <el-col :xs="24" :sm="12">
+                <el-card
+                    shadow="hover"
+                    class="console-chart-console"
+                    body-style="padding: 0;"
+                >
+                    <ECharts
+                        :option="consoleChartOptionCreator()"
+                        :height="'300px'"
+                    />
+                </el-card>
+            </el-col>
+        </el-row>
+        <el-row justify="space-between" class="console-chart">
+            <el-col :xs="24" :sm="12">
+                <el-card
+                    shadow="hover"
+                    class="console-chart-lang"
+                    body-style="padding: 0;"
+                >
+                    <ECharts
+                        :option="langChartOptionCreator(langChartData)"
                         :height="'300px'"
                     />
                 </el-card>

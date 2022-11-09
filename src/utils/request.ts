@@ -1,6 +1,3 @@
-/**
- * 对axios的二次封装
- */
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import type { EpPropMergeType } from 'element-plus/es/utils/vue/props/types';
@@ -57,10 +54,12 @@ service.interceptors.request.use(
 
 // Response interceptors
 service.interceptors.response.use(
-    response =>
-        response.status === 200
-            ? Promise.resolve(response)
-            : Promise.reject(response),
+    response => {
+        if (response.status === 200) {
+            return Promise.resolve(response);
+        }
+        return Promise.reject(response);
+    },
     error => {
         if (error.response) {
             errorHandler(error.response.status, error.response.data);

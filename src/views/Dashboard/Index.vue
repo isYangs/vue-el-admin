@@ -95,58 +95,6 @@ onMounted(() => {
                 </el-card>
             </el-col>
         </el-row>
-        <el-row justify="space-between" class="console-chart">
-            <el-col :xs="24" :sm="12">
-                <el-card
-                    shadow="hover"
-                    class="console-chart-lang"
-                    body-style="padding: 0;"
-                >
-                    <ECharts
-                        :option="langChartOptionCreator(langChartData)"
-                        :height="'300px'"
-                    />
-                </el-card>
-            </el-col>
-            <el-col :xs="24" :sm="12">
-                <el-card
-                    shadow="hover"
-                    class="console-chart-console"
-                    body-style="padding: 0;"
-                >
-                    <ECharts
-                        :option="consoleChartOptionCreator()"
-                        :height="'300px'"
-                    />
-                </el-card>
-            </el-col>
-        </el-row>
-        <el-row justify="space-between" class="console-chart">
-            <el-col :xs="24" :sm="12">
-                <el-card
-                    shadow="hover"
-                    class="console-chart-lang"
-                    body-style="padding: 0;"
-                >
-                    <ECharts
-                        :option="langChartOptionCreator(langChartData)"
-                        :height="'300px'"
-                    />
-                </el-card>
-            </el-col>
-            <el-col :xs="24" :sm="12">
-                <el-card
-                    shadow="hover"
-                    class="console-chart-console"
-                    body-style="padding: 0;"
-                >
-                    <ECharts
-                        :option="consoleChartOptionCreator()"
-                        :height="'300px'"
-                    />
-                </el-card>
-            </el-col>
-        </el-row>
     </div>
 </template>
 

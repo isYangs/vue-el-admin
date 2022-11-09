@@ -17,9 +17,9 @@ const handleCollapse = () => {
 };
 
 const autoWidth = computed(() => {
-    if (appStore.getCollapse && IsMobile.value) {
+    if (!appStore.getCollapse && IsMobile.value) {
         return '0px';
-    } else if (appStore.getCollapse) {
+    } else if (!appStore.getCollapse) {
         return '64px';
     } else {
         return '200px';
@@ -39,7 +39,7 @@ const autoWidth = computed(() => {
             <el-header>
                 <Header>
                     <el-icon class="layout-menu-button" @click="handleCollapse">
-                        <component :is="appStore.getCollapse ? Expand : Fold" />
+                        <component :is="appStore.getCollapse ? Fold : Expand" />
                     </el-icon>
                 </Header>
             </el-header>

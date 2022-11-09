@@ -8,7 +8,7 @@ const appStore = useAppStore();
     <div class="logo">
         <transition name="sidebarLogo">
             <router-link
-                v-if="appStore.getCollapse"
+                v-if="!appStore.getCollapse"
                 class="sidebar-logo-link"
                 to="/dashboard"
             >

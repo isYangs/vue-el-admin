@@ -9,7 +9,7 @@ const appStore = useAppStore();
 
 // 监听窗口大小
 const isMobileShow = () => {
-    appStore.setCollapse(isMobile());
+    appStore.setCollapse(!isMobile());
     appStore.setMobile(isMobile());
 };
 

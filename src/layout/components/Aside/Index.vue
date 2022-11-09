@@ -28,7 +28,7 @@ const isCollapse = computed(() => {
         active-text-color="#ffffff"
         background-color="#283145"
         text-color="#fff"
-        :collapse="isCollapse"
+        :collapse="!isCollapse"
         :collapse-transition="false"
         :default-active="activeMenu"
         :default-openeds="defaultActive"

@@ -4,11 +4,12 @@ import { iconsole } from '@/api';
 
 export const useAppStore = defineStore('app', {
     state: (): AppState => ({
-        collapse: false, // 折叠菜单按钮
+        collapse: true, // 折叠菜单
         mobile: false, // 是否是移动端
         loading: false, // 全局加载状态
         avatar: 'https://a.xuewuzhibu.cn/1/62ffa32495bbf-1.jpg', // 头像
         lang: [], // 本项目使用的语言
+        reload: false, // 是否重载页面
     }),
 
     getters: {
@@ -26,6 +27,9 @@ export const useAppStore = defineStore('app', {
         },
         getLang(): { [key: string]: string }[] {
             return this.lang;
+        },
+        getReload(): boolean {
+            return this.reload;
         },
     },
 
@@ -65,6 +69,12 @@ export const useAppStore = defineStore('app', {
         },
         setLangStorage(name: string, data: { [key: string]: string }[]): void {
             sessionStorage.setItem(name, JSON.stringify(data));
+        },
+        reloadPage(): void {
+            this.reload = true;
+            setTimeout(() => {
+                this.reload = false;
+            }, 100);
         },
     },
 });

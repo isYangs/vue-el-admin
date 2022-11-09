@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref, computed, watch } from 'vue';
 import { useAppStore } from '@/store';
 import { getCurrentTime } from '@/utils/time';
 import ECharts from '@/components/ECharts/Index.vue';
@@ -9,6 +9,7 @@ import {
 } from '@/utils/charts';
 
 const appStore = useAppStore();
+const consoleRef = ref({} as HTMLDivElement);
 
 // 是否为移动端
 const isMobile = computed(() => appStore.getMobile);
@@ -39,7 +40,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="console" :class="isMobile ? 'console-xs' : ''">
+    <div class="console" :class="isMobile ? 'console-xs' : ''" ref="consoleRef">
         <el-card shadow="hover" body-style="padding: 20px 20px 15px">
             <div class="console-header-tip">
                 <transition name="console-avatar" appear>
@@ -79,6 +80,7 @@ onMounted(() => {
                     <ECharts
                         :option="langChartOptionCreator(langChartData)"
                         :height="'300px'"
+                        :page="consoleRef"
                     />
                 </el-card>
             </el-col>
@@ -91,6 +93,7 @@ onMounted(() => {
                     <ECharts
                         :option="consoleChartOptionCreator()"
                         :height="'300px'"
+                        :page="consoleRef"
                     />
                 </el-card>
             </el-col>

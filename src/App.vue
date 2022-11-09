@@ -36,7 +36,7 @@ html,
 body,
 #app {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     box-sizing: border-box;
     font-family: var(--el-font-family);
     background: @--bg;

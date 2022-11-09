@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useAppStore } from '@/store';
-import { isMobile } from '@/utils/isMobile';
 import { Expand, Fold } from '@element-plus/icons-vue';
 import Logo from './components/Logo/Logo.vue';
 import Menu from './components/Aside/Index.vue';
@@ -10,17 +9,18 @@ import Header from './components/Header/Index.vue';
 import TagsView from './components/TagsView/Index.vue';
 
 const appStore = useAppStore();
-const IsMobile = computed(() => isMobile());
 
 const handleCollapse = () => {
     appStore.setCollapse(!appStore.getCollapse);
 };
 
 const autoWidth = computed(() => {
-    if (!appStore.getCollapse && IsMobile.value) {
+    if (!appStore.getCollapse && appStore.getMobile) {
         return '0px';
     } else if (!appStore.getCollapse) {
         return '64px';
+    } else if (appStore.getCollapse && appStore.getMobile) {
+        return '200px';
     } else {
         return '200px';
     }
@@ -29,7 +29,12 @@ const autoWidth = computed(() => {
 
 <template>
     <el-container>
-        <el-aside :style="`width:${autoWidth}`">
+        <el-aside
+            :style="{
+                width: autoWidth,
+                'z-index': appStore.getMobile ? 9999 : 0,
+            }"
+        >
             <Logo />
             <el-scrollbar>
                 <Menu />
@@ -44,9 +49,11 @@ const autoWidth = computed(() => {
                 </Header>
             </el-header>
             <TagsView />
-            <el-main>
-                <Main />
-            </el-main>
+            <el-scrollbar view-style="height:100%">
+                <el-main>
+                    <Main />
+                </el-main>
+            </el-scrollbar>
         </el-container>
     </el-container>
 </template>
@@ -54,6 +61,8 @@ const autoWidth = computed(() => {
 <style lang="less">
 .el-container {
     height: 100%;
+    overflow: hidden;
+
     .el-aside {
         height: 100%;
         background-color: @--bg-aside;
@@ -65,7 +74,7 @@ const autoWidth = computed(() => {
         -o-transition: width 0.5s;
 
         & > .el-scrollbar {
-            flex: 1;
+            margin-bottom: auto;
         }
     }
 

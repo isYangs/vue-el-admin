@@ -4,6 +4,7 @@ export interface AppState {
     loading: boolean;
     avatar: string;
     lang: { [key: string]: string }[];
+    reload: boolean;
 }
 
 export interface TagsMenuProps {

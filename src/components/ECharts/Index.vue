@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import * as echarts from 'echarts';
-import { computed, shallowRef, unref, ref, onMounted, watch } from 'vue';
-import { useAppStore } from '@/store';
+import { shallowRef, unref, ref, onMounted, watch } from 'vue';
+import { useWindowSize } from '@vueuse/core';
 
-const appStore = useAppStore();
-
-const isMobile = computed(() => {
-    return appStore.getMobile;
-});
+const windowSize = useWindowSize();
 
 const props = defineProps({
     option: {
@@ -22,6 +18,10 @@ const props = defineProps({
         type: String,
         default: '350px',
     },
+    page: {
+        type: Object,
+        required: true,
+    },
 });
 
 const Echarts = ref();
@@ -30,9 +30,6 @@ const chart = shallowRef();
 const initChart = () => {
     chart.value = echarts.init(unref(Echarts));
     unref(chart).setOption(unref(props.option));
-    window.addEventListener('resize', () => {
-        unref(chart).resize();
-    });
 };
 
 watch(
@@ -41,6 +38,13 @@ watch(
         unref(chart).setOption(unref(props.option));
     },
     { deep: true }
+);
+
+watch(
+    () => unref(windowSize.width),
+    () => {
+        unref(chart).resize();
+    }
 );
 
 onMounted(() => {

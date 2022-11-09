@@ -1,8 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useAppStore } from '@/store';
+const appStore = useAppStore();
+</script>
 
 <template>
     <div class="layout-main">
-        <router-view />
+        <router-view v-if="!appStore.getReload" />
     </div>
 </template>
 

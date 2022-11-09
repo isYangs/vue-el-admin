@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useRouter, RouteRecordName } from 'vue-router';
 import { MenuRouteRecordRaw } from '@/types';
+import { useAppStore } from '@/store';
 
 defineProps(['routers']);
 const { push } = useRouter();
+// const appStore = useAppStore();
 
 // 跳转路由
 const toPath = (name: RouteRecordName) => {

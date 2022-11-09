@@ -64,6 +64,45 @@ const routes: Array<MenuRouteRecordRaw> = [
             },
         ],
     },
+    {
+        path: '/manage',
+        name: 'Manage',
+        meta: {
+            title: '系统管理',
+            icon: 'SuitcaseLine',
+        },
+        redirect: '/settings/site',
+        component: () => import('@/layout/Index.vue'),
+        children: [
+            {
+                path: 'users',
+                name: 'Users',
+                meta: {
+                    title: '用户管理',
+                    icon: 'User',
+                },
+                component: () => import('@/views/Manage/Users.vue'),
+            },
+            {
+                path: 'permissions',
+                name: 'Permissions',
+                meta: {
+                    title: '权限管理',
+                    icon: 'Files',
+                },
+                component: () => import('@/views/Manage/Permissions.vue'),
+            },
+            {
+                path: 'roles',
+                name: 'Roles',
+                meta: {
+                    title: '角色管理',
+                    icon: 'Avatar',
+                },
+                component: () => import('@/views/Manage/Roles.vue'),
+            },
+        ],
+    },
 ];
 
 const router = createRouter({

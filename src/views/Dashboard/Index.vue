@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, computed, watch } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useAppStore } from '@/store';
 import { getCurrentTime } from '@/utils/time';
 import ECharts from '@/components/ECharts/Index.vue';

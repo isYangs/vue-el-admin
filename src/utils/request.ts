@@ -42,6 +42,9 @@ const errorHandler = (status: number, other: DataView) => {
 
 const service = axios.create({
     timeout: 10000 * 12,
+    headers: {
+        'Content-Type': 'application/json',
+    },
 });
 
 // Request interceptors

@@ -2,10 +2,11 @@
 import { reactive, ref } from 'vue';
 import type { FormInstance } from 'element-plus';
 import { LoginForm } from '@/types';
+import { user } from '@/api';
 
 const loginForm = reactive<LoginForm>({
     username: 'admin',
-    password: '123456',
+    password: 'admin',
 });
 
 const checkbox = ref(false);
@@ -16,6 +17,13 @@ const toRegister = () => {
     emit('to-register');
 };
 
+const loginSubmit = () => {
+    const { username, password } = loginForm;
+    user.login({ username, password }).then(res => {
+        console.log(res);
+    });
+};
+
 const loginFormRef = ref<FormInstance>();
 const rules = reactive({
     username: [
@@ -24,7 +32,7 @@ const rules = reactive({
     ],
     password: [
         { required: true, message: '请输入密码', trigger: 'blur' },
-        { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' },
+        { min: 5, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' },
     ],
 });
 </script>
@@ -62,7 +70,7 @@ const rules = reactive({
                 <el-button type="primary" link>忘记密码</el-button>
             </el-form-item>
             <el-form-item class="button-login">
-                <el-button type="primary">登录</el-button>
+                <el-button type="primary" @click="loginSubmit">登录</el-button>
             </el-form-item>
             <el-form-item class="button-register">
                 <el-button type="default" @click="toRegister">注册</el-button>

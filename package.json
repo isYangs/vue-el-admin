@@ -15,14 +15,12 @@
         "default-passive-events": "^2.0.0",
         "echarts": "^5.4.0",
         "element-plus": "^2.2.20",
-        "mockjs": "^1.1.0",
         "normalize.css": "^8.0.1",
         "pinia": "^2.0.23",
         "vue": "^3.2.13",
         "vue-router": "^4.0.3"
     },
     "devDependencies": {
-        "@types/mockjs": "^1.0.7",
         "@typescript-eslint/eslint-plugin": "^5.4.0",
         "@typescript-eslint/parser": "^5.4.0",
         "@vue/cli-plugin-babel": "~5.0.0",

@@ -8,7 +8,7 @@ import Icon from '@/components/Icon.vue';
 import { createPinia } from 'pinia';
 import 'default-passive-events';
 import 'normalize.css';
-import 'animate.css';
+import '../mock';
 
 const pinia = createPinia();
 

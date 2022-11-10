@@ -49,7 +49,7 @@ const autoWidth = computed(() => {
                 </Header>
             </el-header>
             <TagsView />
-            <el-scrollbar view-style="height:100%">
+            <el-scrollbar>
                 <el-main>
                     <Main />
                 </el-main>
@@ -104,6 +104,11 @@ const autoWidth = computed(() => {
         font-weight: 500;
         overflow: hidden;
     }
+
+    .el-scrollbar {
+        height: 100%;
+    }
+
     .el-main {
         height: 100%;
         padding: 20px;

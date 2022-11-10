@@ -1,10 +1,10 @@
 import base from './base';
-import axios from '../utils/request';
+import request from '../utils/request';
 
 const console = {
     // 获取语言
     getLang() {
-        return axios.get(base.lang);
+        return request(`${base.gh}/languages`);
     },
 };
 

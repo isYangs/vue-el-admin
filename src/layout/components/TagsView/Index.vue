@@ -12,6 +12,7 @@ import {
     ArrowRightBold,
     CloseBold,
 } from '@element-plus/icons-vue';
+import { Storage, Constants } from '@/utils/storage';
 
 const appStore = useAppStore();
 const tagsViewStore = useTagsViewStore();
@@ -66,17 +67,13 @@ const addTag = () => {
 // 刷新缓存标签数据
 const refreshTags = () => {
     window.addEventListener('beforeunload', () => {
-        sessionStorage.setItem(
-            'VEA_TAGS_ROUTES',
-            JSON.stringify(tagsList.value)
-        );
+        Storage.set(Constants.TAGS_VIEW, tagsList.value, 'session');
     });
 
-    let sessionTags = sessionStorage.getItem('VEA_TAGS_ROUTES');
+    let sessionTags = Storage.get(Constants.TAGS_VIEW, 'session');
 
     if (sessionTags) {
-        const tagItem = JSON.parse(sessionTags);
-        tagItem.forEach((item: TagsMenuProps) => {
+        sessionTags.forEach((item: TagsMenuProps) => {
             tagsViewStore.addTag(item);
         });
     }

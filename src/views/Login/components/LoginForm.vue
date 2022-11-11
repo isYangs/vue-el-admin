@@ -4,6 +4,7 @@ import { FormInstance } from 'element-plus';
 import { LoginForm } from '@/types';
 import { user } from '@/api';
 import { useRouter } from 'vue-router';
+import { Storage, Constants } from '@/utils/storage';
 
 const { addRoute, push } = useRouter();
 
@@ -38,6 +39,7 @@ const loginSubmit = async () => {
             const { username, password } = loginForm;
             const res = await user.login({ username, password });
             if (res.data.code === 200) {
+                Storage.set(Constants.USER_INFO, res.data.data);
                 push('/dashboard');
                 ElMessage({
                     showClose: true,

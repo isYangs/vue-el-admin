@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { TagsViewState, TagsMenuProps } from '@/store/interface';
+import { Storage, Constants } from '@/utils/storage';
 
 export const useTagsViewStore = defineStore('tagsView', {
     state: (): TagsViewState => ({
@@ -45,7 +46,7 @@ export const useTagsViewStore = defineStore('tagsView', {
             this.delSession();
         },
         delSession() {
-            sessionStorage.removeItem('VEA_TAGS_ROUTES');
+            Storage.clear('session');
         },
     },
 });

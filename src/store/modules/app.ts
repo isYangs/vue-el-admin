@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { AppState } from '@/store/interface';
 import { iconsole } from '@/api';
+import { Storage, Constants } from '@/utils/storage';
 
 export const useAppStore = defineStore('app', {
     state: (): AppState => ({
@@ -34,13 +35,9 @@ export const useAppStore = defineStore('app', {
     },
 
     actions: {
-        getStorage(name: string): [] {
-            if (!sessionStorage.getItem(name)) return [];
-            return JSON.parse(sessionStorage.getItem(name) as string);
-        },
         async addLang() {
-            const n = 'VUE_EL_ADMIN_LANG';
-            if (!this.getStorage(n).length) {
+            const lang = Storage.get(Constants.PROJECT_LANG, 'session');
+            if (lang.length === 0) {
                 const r = await iconsole.getLang();
                 const d = [];
                 for (const key in r.data) {
@@ -51,9 +48,9 @@ export const useAppStore = defineStore('app', {
                     });
                 }
                 this.lang = d;
-                this.setLangStorage(n, d);
+                Storage.set(Constants.PROJECT_LANG, d, 'session');
             }
-            this.lang = this.getStorage(n);
+            this.lang = lang;
         },
         addAvatar() {},
         setCollapse(collapse: boolean): void {
@@ -67,9 +64,6 @@ export const useAppStore = defineStore('app', {
         },
         setAvatar(avatar: string): void {
             this.avatar = avatar;
-        },
-        setLangStorage(name: string, data: { [key: string]: string }[]): void {
-            sessionStorage.setItem(name, JSON.stringify(data));
         },
         reloadPage(): void {
             this.reload = true;

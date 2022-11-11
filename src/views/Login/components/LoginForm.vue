@@ -5,7 +5,7 @@ import { LoginForm } from '@/types';
 import { user } from '@/api';
 import { useRouter } from 'vue-router';
 
-const { push } = useRouter();
+const { addRoute, push } = useRouter();
 
 const loginForm = reactive<LoginForm>({
     username: 'admin',
@@ -20,34 +20,6 @@ const toRegister = () => {
     emit('to-register');
 };
 
-const loginSubmit = () => {
-    const { username, password } = loginForm;
-    user.login({ username, password }).then(res => {
-        if (res.data.code === 200) {
-            localStorage.setItem(
-                'vue-el-admin-user',
-                JSON.stringify(res.data.data)
-            );
-            push('/dashboard');
-            ElMessage({
-                showClose: true,
-                message: res.data.msg,
-                type: 'success',
-                duration: 2000,
-                center: true,
-            });
-        } else {
-            ElMessage({
-                showClose: true,
-                message: res.data.msg,
-                type: 'error',
-                duration: 2000,
-                center: true,
-            });
-        }
-    });
-};
-
 const loginFormRef = ref<FormInstance>();
 const rules = reactive({
     username: [
@@ -59,6 +31,33 @@ const rules = reactive({
         { min: 5, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' },
     ],
 });
+
+const loginSubmit = async () => {
+    await loginFormRef.value?.validate(async valid => {
+        if (valid) {
+            const { username, password } = loginForm;
+            const res = await user.login({ username, password });
+            if (res.data.code === 200) {
+                push('/dashboard');
+                ElMessage({
+                    showClose: true,
+                    message: res.data.msg,
+                    type: 'success',
+                    duration: 2000,
+                    center: true,
+                });
+            } else {
+                ElMessage({
+                    showClose: true,
+                    message: res.data.msg,
+                    type: 'error',
+                    duration: 2000,
+                    center: true,
+                });
+            }
+        }
+    });
+};
 </script>
 <template>
     <div class="login-container__right__form">

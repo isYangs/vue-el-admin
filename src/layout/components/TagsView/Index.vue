@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { onMounted, unref, ref, watch, computed } from 'vue';
+import { unref, ref, watch, computed } from 'vue';
 import { useAppStore, useTagsViewStore } from '@/store';
 import { useRoute, useRouter } from 'vue-router';
 import { TagsMenuProps } from '@/store/interface';
+import type { TabsPaneContext } from 'element-plus';
 import {
     Operation,
     RefreshRight,
@@ -84,8 +85,8 @@ const refreshTags = () => {
 refreshTags();
 
 // 点击标签路由跳转
-const tagClick = (tag: any) => {
-    push({ path: tag.props.name });
+const tagClick = (tag: TabsPaneContext) => {
+    push({ path: tag.paneName as string });
 };
 
 //  关闭选中标签

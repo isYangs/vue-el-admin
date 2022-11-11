@@ -55,6 +55,7 @@ export const useAppStore = defineStore('app', {
             }
             this.lang = this.getStorage(n);
         },
+        addAvatar() {},
         setCollapse(collapse: boolean): void {
             this.collapse = collapse;
         },

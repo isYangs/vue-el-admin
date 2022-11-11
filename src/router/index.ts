@@ -3,6 +3,11 @@ import { MenuRouteRecordRaw } from '@/types';
 
 const routes: Array<MenuRouteRecordRaw> = [
     {
+        path: '/',
+        redirect: '/login',
+        hidden: true,
+    },
+    {
         path: '/login',
         name: 'Login',
         hidden: true,

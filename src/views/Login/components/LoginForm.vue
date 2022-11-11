@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import type { FormInstance } from 'element-plus';
+import { FormInstance } from 'element-plus';
 import { LoginForm } from '@/types';
 import { user } from '@/api';
+import { useRouter } from 'vue-router';
+
+const { push } = useRouter();
 
 const loginForm = reactive<LoginForm>({
     username: 'admin',
@@ -20,7 +23,28 @@ const toRegister = () => {
 const loginSubmit = () => {
     const { username, password } = loginForm;
     user.login({ username, password }).then(res => {
-        console.log(res);
+        if (res.data.code === 200) {
+            localStorage.setItem(
+                'vue-el-admin-user',
+                JSON.stringify(res.data.data)
+            );
+            push('/dashboard');
+            ElMessage({
+                showClose: true,
+                message: res.data.msg,
+                type: 'success',
+                duration: 2000,
+                center: true,
+            });
+        } else {
+            ElMessage({
+                showClose: true,
+                message: res.data.msg,
+                type: 'error',
+                duration: 2000,
+                center: true,
+            });
+        }
     });
 };
 

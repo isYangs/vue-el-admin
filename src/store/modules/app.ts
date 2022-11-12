@@ -37,7 +37,7 @@ export const useAppStore = defineStore('app', {
     actions: {
         async addLang() {
             const lang = Storage.get(Constants.PROJECT_LANG, 'session');
-            if (lang.length === 0) {
+            if (lang) {
                 const r = await iconsole.getLang();
                 const d = [];
                 for (const key in r.data) {

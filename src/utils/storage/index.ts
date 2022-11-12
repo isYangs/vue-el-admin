@@ -6,7 +6,7 @@ const { BASE_KEY } = constants;
 const get = (key: string, type?: StorageType) => {
     const storage = type === 'session' ? sessionStorage : localStorage;
     const value = storage.getItem(`${BASE_KEY}-${key}`);
-    return value ? JSON.parse(value) : [];
+    return value ? JSON.parse(value) : null;
 };
 const set = (key: string, value: any, type?: StorageType) => {
     if (type === 'session') {

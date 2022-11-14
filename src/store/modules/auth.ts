@@ -8,7 +8,7 @@ import { asyncRoutes } from '@/router';
 const storage = Storage.get(Constants.USER_INFO);
 export const useAuthStore = defineStore('auth', {
     state: (): AuthState => ({
-        token: '', // 用户token,
+        token: storage ? storage.value.user_token : '', // 用户token,
         isLogin: storage ? true : false, // 是否登录
     }),
     getters: {

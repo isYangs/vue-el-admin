@@ -1,35 +1,24 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { Plus, Search, Delete } from '@element-plus/icons-vue';
+import { idata } from '@/api';
+import { useAuthStore } from '@/store';
 
 const searchVal = ref('');
+const authStore = useAuthStore();
 
-const tableData = [
-    {
-        id: 1,
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        id: 2,
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        id: 3,
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        id: 4,
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-];
+const tableData = ref([]);
+const getTableData = async () => {
+    const res = await idata.getUserList({
+        token: authStore.getToken,
+        total: 10,
+    });
+    tableData.value = await res.data.data.list;
+};
+
+onMounted(() => {
+    getTableData();
+});
 </script>
 
 <template>
@@ -52,12 +41,17 @@ const tableData = [
                     width="55"
                     align="center"
                 />
-                <el-table-column prop="name" label="用户名" />
-                <el-table-column prop="" label="头像" />
-                <el-table-column prop="address" label="地址" />
-                <el-table-column prop="" label="注册时间" />
-                <el-table-column label="状态" />
-                <el-table-column label="操作" />
+                <el-table-column
+                    prop="name"
+                    label="姓名"
+                    width="100"
+                    align="center"
+                />
+                <el-table-column prop="email" label="邮箱" align="center" />
+                <el-table-column prop="address" label="地址" align="center" />
+                <el-table-column prop="date" label="注册时间" align="center" />
+                <el-table-column label="状态" align="center" />
+                <el-table-column label="操作" align="center" />
             </el-table>
         </div>
     </div>

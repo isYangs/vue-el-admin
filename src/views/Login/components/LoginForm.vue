@@ -2,12 +2,14 @@
 import { reactive, ref } from 'vue';
 import { FormInstance } from 'element-plus';
 import { LoginForm } from '@/types';
-import { user } from '@/api';
 import { useRouter } from 'vue-router';
-import { Storage, Constants } from '@/utils/storage';
+import { useAppStore, useAuthStore, useMenuStore } from '@/store';
+import { asyncRoutes } from '@/router';
 
-const { addRoute, push } = useRouter();
-
+const { push } = useRouter();
+const appStore = useAppStore();
+const authStore = useAuthStore();
+const menuStore = useMenuStore();
 const loginForm = reactive<LoginForm>({
     username: 'admin',
     password: 'admin',
@@ -37,26 +39,12 @@ const loginSubmit = async () => {
     await loginFormRef.value?.validate(async valid => {
         if (valid) {
             const { username, password } = loginForm;
-            const res = await user.login({ username, password });
-            if (res.data.code === 200) {
-                Storage.set(Constants.USER_INFO, res.data.data);
+            const res = await authStore.login({ username, password }, () => {
+                console.log('登录成功');
+                menuStore.setRouter(asyncRoutes);
                 push('/dashboard');
-                ElMessage({
-                    showClose: true,
-                    message: res.data.msg,
-                    type: 'success',
-                    duration: 2000,
-                    center: true,
-                });
-            } else {
-                ElMessage({
-                    showClose: true,
-                    message: res.data.msg,
-                    type: 'error',
-                    duration: 2000,
-                    center: true,
-                });
-            }
+            });
+            appStore.setAvatar(res.avatar);
         }
     });
 };

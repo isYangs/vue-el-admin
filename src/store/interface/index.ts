@@ -1,3 +1,4 @@
+import { MenuRouteRecordRaw } from '@/types';
 export interface AppState {
     collapse: boolean;
     mobile: boolean;
@@ -14,4 +15,13 @@ export interface TagsMenuProps {
 
 export interface TagsViewState {
     TagsList: TagsMenuProps[];
+}
+
+export interface AuthState {
+    token: string;
+    isLogin: boolean;
+}
+
+export interface MenuState {
+    router: MenuRouteRecordRaw[];
 }

@@ -1,11 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import { MenuRouteRecordRaw } from '@/types';
 
-const routes: Array<MenuRouteRecordRaw> = [
+export const routes: Array<MenuRouteRecordRaw> = [
     {
         path: '/',
         redirect: '/login',
-        hidden: true,
     },
     {
         path: '/login',
@@ -13,6 +12,9 @@ const routes: Array<MenuRouteRecordRaw> = [
         hidden: true,
         component: () => import('@/views/Login/Login.vue'),
     },
+];
+
+export const asyncRoutes: Array<MenuRouteRecordRaw> = [
     {
         path: '/dashboard',
         name: 'Dashboard',

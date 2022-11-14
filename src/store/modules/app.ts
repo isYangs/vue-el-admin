@@ -3,13 +3,16 @@ import { AppState } from '@/store/interface';
 import { iconsole } from '@/api';
 import { Storage, Constants } from '@/utils/storage';
 
+const userInfo = Storage.get(Constants.USER_INFO);
+const projectLang = Storage.get(Constants.PROJECT_LANG, 'session');
+
 export const useAppStore = defineStore('app', {
     state: (): AppState => ({
         collapse: true, // 折叠菜单
         mobile: false, // 是否是移动端
         loading: false, // 全局加载状态
-        avatar: 'https://a.xuewuzhibu.cn/1/62ffa32495bbf-1.jpg', // 头像
-        lang: [], // 本项目使用的语言
+        avatar: userInfo ? userInfo.value.avatar : '', // 用户头像
+        lang: projectLang ? projectLang : [], // 本项目使用的语言
         reload: false, // 是否重载页面
     }),
 
@@ -37,7 +40,7 @@ export const useAppStore = defineStore('app', {
     actions: {
         async addLang() {
             const lang = Storage.get(Constants.PROJECT_LANG, 'session');
-            if (lang) {
+            if (!lang) {
                 const r = await iconsole.getLang();
                 const d = [];
                 for (const key in r.data) {
@@ -47,8 +50,9 @@ export const useAppStore = defineStore('app', {
                         value: r.data[key],
                     });
                 }
-                this.lang = d;
                 Storage.set(Constants.PROJECT_LANG, d, 'session');
+                this.lang = d;
+                console.log(d);
             }
             this.lang = lang;
         },

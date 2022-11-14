@@ -8,6 +8,7 @@ import Icon from '@/components/Icon.vue';
 import { createPinia } from 'pinia';
 import 'default-passive-events';
 import 'normalize.css';
+import './permission';
 
 const pinia = createPinia();
 

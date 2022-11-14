@@ -3,10 +3,10 @@ import { computed } from 'vue';
 import { useAppStore } from '@/store';
 import MenuItem from './MenuItem.vue';
 import { useRouter } from 'vue-router';
+import { useMenuStore } from '@/store';
 
 const appStore = useAppStore();
 const { options, currentRoute } = useRouter();
-const routers = options.routes;
 const defaultActive = ['/settings'];
 
 // 默认展开的菜单
@@ -33,7 +33,7 @@ const isCollapse = computed(() => {
         :default-active="activeMenu"
         :default-openeds="defaultActive"
     >
-        <MenuItem :routers="routers" />
+        <MenuItem :routers="useMenuStore().getRouter" />
     </el-menu>
 </template>
 

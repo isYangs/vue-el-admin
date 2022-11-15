@@ -6,16 +6,29 @@ import { useAuthStore } from '@/store';
 
 const searchVal = ref('');
 const authStore = useAuthStore();
-
+const total = ref(0);
 const tableData = ref([]);
+const tabLoading = ref(false);
+const currentPage = ref(1);
 const getTableData = async () => {
+    tabLoading.value = true;
     const res = await idata.getUserList({
         token: authStore.getToken,
-        total: 10,
+        total: 20,
+        pageSize: 10,
     });
+    total.value = res.data.data.total;
     tableData.value = await res.data.data.list;
+    tabLoading.value = false;
 };
 
+const handleSizeChange = (val: number) => {
+    console.log(`每页 ${val} 条`);
+};
+
+const handleCurrentChange = (val: number) => {
+    currentPage.value = val;
+};
 onMounted(() => {
     getTableData();
 });
@@ -34,7 +47,12 @@ onMounted(() => {
             <el-button type="danger" :icon="Delete">删除用户</el-button>
         </div>
         <div class="user-main">
-            <el-table :data="tableData" border style="width: 100%">
+            <el-table
+                :data="tableData"
+                v-loading="tabLoading"
+                border
+                style="width: 100%"
+            >
                 <el-table-column
                     prop="id"
                     label="ID"
@@ -53,6 +71,14 @@ onMounted(() => {
                 <el-table-column label="状态" align="center" />
                 <el-table-column label="操作" align="center" />
             </el-table>
+            <el-pagination
+                background
+                layout="prev, pager, next"
+                :total="total"
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
+            />
         </div>
     </div>
 </template>
@@ -75,6 +101,10 @@ onMounted(() => {
 
     &-main {
         margin-top: 20px;
+
+        & > .el-pagination {
+            margin-top: 20px;
+        }
     }
 }
 </style>

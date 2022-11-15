@@ -12,6 +12,10 @@ export const routes: Array<MenuRouteRecordRaw> = [
         hidden: true,
         component: () => import('@/views/Login/Login.vue'),
     },
+    {
+        path: '/:pathMatch(.*)*',
+        component: () => import('@/views/Exception/404.vue'),
+    },
 ];
 
 export const asyncRoutes: Array<MenuRouteRecordRaw> = [
